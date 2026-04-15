@@ -10,32 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg1:#FAFAF8;--bg2:#F0EFEB;--bg3:#E8E7E3;
-  --tx1:#1A1A1A;--tx2:#5A5A58;--tx3:#8A8A86;
-  --bd1:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.12);
-  --card:#FFFFFF;--card-v:rgba(34,197,94,.04);
-  --input-bg:rgba(0,0,0,.03);--input-bd:rgba(0,0,0,.1);
-  --note-bg:rgba(59,130,246,.04);--note-bd:rgba(59,130,246,.12);
-  --note-tx:rgba(30,80,180,.7);
-  --shadow:0 1px 3px rgba(0,0,0,.06);
-  --green:#16A34A;--green-bg:rgba(34,197,94,.08);
-  --blue:#2563EB;--blue-bg:rgba(59,130,246,.06);
-  --star:#E8A308;
-}
-[data-theme="dark"]{
-  --bg1:#0A0F14;--bg2:#111820;--bg3:#1A222C;
-  --tx1:#E8E8E4;--tx2:rgba(255,255,255,.5);--tx3:rgba(255,255,255,.25);
-  --bd1:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.1);
-  --card:rgba(16,24,28,.85);--card-v:rgba(34,197,94,.06);
-  --input-bg:rgba(255,255,255,.04);--input-bd:rgba(255,255,255,.08);
-  --note-bg:rgba(59,130,246,.05);--note-bd:rgba(59,130,246,.1);
-  --note-tx:rgba(147,197,253,.75);
-  --shadow:0 1px 4px rgba(0,0,0,.3);
-  --green:#22C55E;--green-bg:rgba(34,197,94,.12);
-  --blue:#3B82F6;--blue-bg:rgba(59,130,246,.08);
-  --star:#F59E0B;
-}
+:root{--bg1:#FAFAF8;--bg2:#F0EFEB;--bg3:#E8E7E3;--tx1:#1A1A1A;--tx2:#5A5A58;--tx3:#8A8A86;--bd1:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.12);--card:#FFF;--card-v:rgba(34,197,94,.04);--input-bg:rgba(0,0,0,.03);--input-bd:rgba(0,0,0,.1);--note-bg:rgba(59,130,246,.04);--note-bd:rgba(59,130,246,.12);--note-tx:rgba(30,80,180,.7);--shadow:0 1px 3px rgba(0,0,0,.06);--green:#16A34A;--green-bg:rgba(34,197,94,.08);--blue:#2563EB;--blue-bg:rgba(59,130,246,.06);--star:#E8A308}
+[data-theme="dark"]{--bg1:#0A0F14;--bg2:#111820;--bg3:#1A222C;--tx1:#E8E8E4;--tx2:rgba(255,255,255,.5);--tx3:rgba(255,255,255,.25);--bd1:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.1);--card:rgba(16,24,28,.85);--card-v:rgba(34,197,94,.06);--input-bg:rgba(255,255,255,.04);--input-bd:rgba(255,255,255,.08);--note-bg:rgba(59,130,246,.05);--note-bd:rgba(59,130,246,.1);--note-tx:rgba(147,197,253,.75);--shadow:0 1px 4px rgba(0,0,0,.3);--green:#22C55E;--green-bg:rgba(34,197,94,.12);--blue:#3B82F6;--blue-bg:rgba(59,130,246,.08);--star:#F59E0B}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg1);color:var(--tx1);font-family:'DM Sans','Segoe UI',system-ui,sans-serif;min-height:100vh;min-height:100dvh;overscroll-behavior:none;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
@@ -43,153 +19,196 @@ input,textarea,select,button{font-family:inherit;-webkit-appearance:none}
 input::placeholder,textarea::placeholder{color:var(--tx3)}
 ::-webkit-scrollbar{width:0;display:none}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-.header{padding:20px 16px 14px;border-bottom:1px solid var(--bd1);background:var(--bg1);position:sticky;top:0;z-index:100;transition:background .3s}
-.hdr-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.title{font-size:22px;font-weight:700;letter-spacing:-.03em;color:var(--tx1)}
-.subtitle{font-size:9px;color:var(--tx3);font-weight:600;letter-spacing:.06em;display:block;margin-top:1px}
-.hdr-actions{display:flex;gap:8px;align-items:center}
-.theme-btn{width:36px;height:36px;border-radius:50%;cursor:pointer;border:1px solid var(--bd1);background:var(--bg2);display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:16px;line-height:1}
-.add-btn{padding:7px 14px;font-size:12px;font-weight:700;border-radius:8px;cursor:pointer;border:1px solid var(--green);background:var(--green-bg);color:var(--green);transition:all .2s}
-.progress-wrap{display:flex;align-items:center;gap:10px;margin-top:10px}
-.progress-bar{flex:1;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;border-radius:2px;transition:width .4s;background:var(--green)}
-.progress-text{font-size:11px;color:var(--tx3);font-weight:600;white-space:nowrap}
-.row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;align-items:center}
-.chip{padding:6px 13px;font-size:12px;font-weight:600;border-radius:8px;cursor:pointer;border:1px solid var(--bd1);background:transparent;color:var(--tx3);transition:all .15s}
-.chip.active{border-color:var(--bd2);background:var(--bg2);color:var(--tx1)}
-.search-wrap{margin-top:10px;position:relative}
-.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--tx3)}
-.search-input{width:100%;padding:10px 12px 10px 36px;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:10px;color:var(--tx1);font-size:14px;outline:none;transition:border-color .2s}
-.search-input:focus{border-color:var(--blue)}
-.cuisine-toggle{display:flex;align-items:center;gap:6px;padding:6px 12px;font-size:12px;font-weight:600;border-radius:8px;cursor:pointer;border:1px solid var(--bd1);background:transparent;color:var(--tx2);transition:all .15s;margin-top:10px}
-.cuisine-toggle svg{transition:transform .2s}
-.cuisine-toggle.open svg{transform:rotate(180deg)}
-.cuisine-toggle .cbadge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:9px;font-size:10px;font-weight:700;background:var(--blue);color:#fff;padding:0 5px}
-.pills-wrap{overflow:hidden;transition:max-height .3s ease,opacity .2s;max-height:0;opacity:0}
-.pills-wrap.open{max-height:200px;opacity:1}
-.pills{display:flex;gap:5px;flex-wrap:wrap;padding:8px 0 2px}
-.pill{padding:4px 10px;font-size:10px;font-weight:600;border-radius:16px;cursor:pointer;border:none;transition:all .15s}
-.sort-select{padding:5px 8px;font-size:11px;font-weight:600;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:6px;color:var(--tx2);cursor:pointer;outline:none;margin-left:auto}
-.list{max-width:680px;margin:0 auto;padding:12px 16px 100px}
-.count{font-size:10px;color:var(--tx3);font-weight:600;margin-bottom:10px;letter-spacing:.06em}
-.card{background:var(--card);border:1px solid var(--bd1);box-shadow:var(--shadow);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:all .2s;position:relative;overflow:hidden}
-.card.visited{background:var(--card-v);border-color:rgba(34,197,94,.2)}
-.card.visited .card-bar{display:block}
-.card-bar{display:none;position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.card-info{flex:1;min-width:0}
-.card-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.card-name{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--tx1)}
-.card.visited .card-name{color:var(--tx3);text-decoration:line-through;text-decoration-color:rgba(34,197,94,.4)}
-.badge{font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:5px;text-transform:uppercase;white-space:nowrap}
-.stars{display:flex;align-items:center;gap:2px;margin-top:5px}
-.star-val{margin-left:5px;font-size:12px;font-weight:700;color:var(--star)}
-.card-meta{margin-top:4px;font-size:11px;color:var(--tx3);display:flex;gap:10px;flex-wrap:wrap}
-.card-hours{margin-top:2px;font-size:10px;color:var(--tx3);opacity:.7}
-.card-btns{display:flex;flex-direction:column;gap:6px;align-items:center;flex-shrink:0}
-.icon-btn{width:40px;height:40px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;border:1.5px solid var(--bd1);background:transparent}
-.icon-btn.check-on{border-color:var(--green);background:var(--green-bg)}
-.icon-btn.note-on{border-color:var(--blue);background:var(--blue-bg)}
-.note-box{margin-top:8px;padding:8px 10px;border-radius:7px;background:var(--note-bg);border:1px solid var(--note-bd);font-size:12px;color:var(--note-tx);font-family:'JetBrains Mono',monospace;white-space:pre-wrap;line-height:1.4}
-.note-editor{margin-top:10px}
-.note-textarea{width:100%;min-height:60px;padding:10px 12px;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:8px;color:var(--tx1);font-size:13px;font-family:'JetBrains Mono',monospace;resize:vertical;outline:none}
-.note-textarea:focus{border-color:var(--blue)}
-.note-save{float:right;margin-top:6px;padding:5px 14px;font-size:11px;font-weight:600;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue);border-radius:6px;cursor:pointer}
-.add-form{background:var(--card);border:1px solid var(--bd1);box-shadow:var(--shadow);border-radius:14px;padding:18px;margin-bottom:12px}
-.add-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.add-title h3{font-size:15px;font-weight:700;color:var(--tx1)}
-.close-x{background:none;border:none;color:var(--tx3);cursor:pointer;font-size:18px;padding:0 4px}
-.form-row{display:flex;gap:8px}
-.form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
-.form-label{font-size:10px;font-weight:600;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase}
-.form-input{width:100%;padding:10px 12px;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:8px;color:var(--tx1);font-size:14px;outline:none}
-.form-input:focus{border-color:var(--blue)}
-.submit-btn{width:100%;margin-top:6px;padding:12px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;border:none;transition:all .2s}
-.submit-btn.on{background:var(--green);color:#fff}
-.submit-btn.off{background:var(--bg3);color:var(--tx3);cursor:default}
-.empty{text-align:center;padding:50px 20px;color:var(--tx3);font-size:13px}
-.clear-btn{margin-top:10px;padding:8px 18px;background:var(--bg2);border:1px solid var(--bd1);border-radius:7px;color:var(--tx2);cursor:pointer;font-size:12px}
+.hd{padding:20px 16px 14px;border-bottom:1px solid var(--bd1);background:var(--bg1);position:sticky;top:0;z-index:100;transition:background .3s}
+.ht{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ti{font-size:22px;font-weight:700;letter-spacing:-.03em;color:var(--tx1)}
+.su{font-size:9px;color:var(--tx3);font-weight:600;letter-spacing:.06em;display:block;margin-top:1px}
+.ha{display:flex;gap:8px;align-items:center}
+.tb{width:36px;height:36px;border-radius:50%;cursor:pointer;border:1px solid var(--bd1);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;transition:all .2s}
+.ab{padding:7px 14px;font-size:12px;font-weight:700;border-radius:8px;cursor:pointer;border:1px solid var(--green);background:var(--green-bg);color:var(--green);transition:all .2s}
+.pw{display:flex;align-items:center;gap:10px;margin-top:10px}
+.pb{flex:1;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.pf{height:100%;border-radius:2px;transition:width .4s;background:var(--green)}
+.pt{font-size:11px;color:var(--tx3);font-weight:600;white-space:nowrap}
+.rw{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.ch{padding:6px 13px;font-size:12px;font-weight:600;border-radius:8px;cursor:pointer;border:1px solid var(--bd1);background:transparent;color:var(--tx3);transition:all .15s}
+.ch.a{border-color:var(--bd2);background:var(--bg2);color:var(--tx1)}
+.sw{margin-top:10px;position:relative}
+.si{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--tx3)}
+.sx{width:100%;padding:10px 12px 10px 36px;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:10px;color:var(--tx1);font-size:14px;outline:none;transition:border-color .2s}
+.sx:focus{border-color:var(--blue)}
+.ct{display:flex;align-items:center;gap:6px;padding:6px 12px;font-size:12px;font-weight:600;border-radius:8px;cursor:pointer;border:1px solid var(--bd1);background:transparent;color:var(--tx2);transition:all .15s;margin-top:10px}
+.ct svg{transition:transform .2s}
+.ct.o svg{transform:rotate(180deg)}
+.ct .cb{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:9px;font-size:10px;font-weight:700;background:var(--blue);color:#fff;padding:0 5px}
+.plw{overflow:hidden;transition:max-height .3s ease,opacity .2s;max-height:0;opacity:0}
+.plw.o{max-height:200px;opacity:1}
+.pls{display:flex;gap:5px;flex-wrap:wrap;padding:8px 0 2px}
+.pl{padding:4px 10px;font-size:10px;font-weight:600;border-radius:16px;cursor:pointer;border:none;transition:all .15s}
+.ss{padding:5px 8px;font-size:11px;font-weight:600;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:6px;color:var(--tx2);cursor:pointer;outline:none;margin-left:auto}
+.ls{max-width:680px;margin:0 auto;padding:12px 16px 100px}
+.cn{font-size:10px;color:var(--tx3);font-weight:600;margin-bottom:10px;letter-spacing:.06em}
+.cd{background:var(--card);border:1px solid var(--bd1);box-shadow:var(--shadow);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:all .2s;position:relative;overflow:hidden}
+.cd.v{background:var(--card-v);border-color:rgba(34,197,94,.2)}
+.cd.v .cb2{display:block}
+.cb2{display:none;position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
+.ct2{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ci{flex:1;min-width:0}
+.cr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nm{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--tx1)}
+.cd.v .nm{color:var(--tx3);text-decoration:line-through;text-decoration-color:rgba(34,197,94,.4)}
+.bd{font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:5px;text-transform:uppercase;white-space:nowrap}
+.st{display:flex;align-items:center;gap:2px;margin-top:5px}
+.sv{margin-left:5px;font-size:12px;font-weight:700;color:var(--star)}
+.mt{margin-top:4px;font-size:11px;color:var(--tx3);display:flex;gap:10px;flex-wrap:wrap}
+.hr{margin-top:2px;font-size:10px;color:var(--tx3);opacity:.7}
+.bs{display:flex;flex-direction:column;gap:6px;align-items:center;flex-shrink:0}
+.ib{width:40px;height:40px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;border:1.5px solid var(--bd1);background:transparent}
+.ib.co{border-color:var(--green);background:var(--green-bg)}
+.ib.no{border-color:var(--blue);background:var(--blue-bg)}
+.nb{margin-top:8px;padding:8px 10px;border-radius:7px;background:var(--note-bg);border:1px solid var(--note-bd);font-size:12px;color:var(--note-tx);font-family:'JetBrains Mono',monospace;white-space:pre-wrap;line-height:1.4}
+.ne{margin-top:10px}
+.nt{width:100%;min-height:60px;padding:10px 12px;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:8px;color:var(--tx1);font-size:13px;font-family:'JetBrains Mono',monospace;resize:vertical;outline:none}
+.nt:focus{border-color:var(--blue)}
+.ns{float:right;margin-top:6px;padding:5px 14px;font-size:11px;font-weight:600;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue);border-radius:6px;cursor:pointer}
+.af{background:var(--card);border:1px solid var(--bd1);box-shadow:var(--shadow);border-radius:14px;padding:18px;margin-bottom:12px}
+.at{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.at h3{font-size:15px;font-weight:700;color:var(--tx1)}
+.cx{background:none;border:none;color:var(--tx3);cursor:pointer;font-size:18px;padding:0 4px}
+.fr{display:flex;gap:8px}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.fl{font-size:10px;font-weight:600;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase}
+.fi{width:100%;padding:10px 12px;background:var(--input-bg);border:1px solid var(--input-bd);border-radius:8px;color:var(--tx1);font-size:14px;outline:none}
+.fi:focus{border-color:var(--blue)}
+.sb{width:100%;margin-top:6px;padding:12px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;border:none;transition:all .2s}
+.sb.on{background:var(--green);color:#fff}
+.sb.of{background:var(--bg3);color:var(--tx3);cursor:default}
+.em{text-align:center;padding:50px 20px;color:var(--tx3);font-size:13px}
+.clb{margin-top:10px;padding:8px 18px;background:var(--bg2);border:1px solid var(--bd1);border-radius:7px;color:var(--tx2);cursor:pointer;font-size:12px}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
 const D=[
-{id:1,n:"Shtastlivetsa",t:"r",c:"Bulgarian",r:4.5,rv:12367,a:"bul. Vitosha 27",p:"$$",h:"11AM–12AM daily"},
-{id:2,n:"Cosmos",t:"r",c:"Bulgarian Fusion",r:4.6,rv:3802,a:"ul. Laveleye 19",p:"$$$",h:"12–3:30PM, 5:30–10:30PM"},
-{id:3,n:"Staria Chinar",t:"r",c:"Bulgarian",r:4.7,rv:5889,a:"Dondukov Blvd 71",p:"$$",h:"11AM–11PM daily"},
-{id:4,n:"Unica",t:"r",c:"Italian",r:4.6,rv:1936,a:"bul. Tsar Osvoboditel 8A",p:"$$$",h:"12–3:30PM, 4:30–11PM"},
-{id:5,n:"Kuzina",t:"r",c:"Greek",r:4.8,rv:2565,a:"ul. Han Asparuh 36",p:"$$",h:"12–11:30PM daily"},
-{id:6,n:"COOKÓ Kitchen:Drinks",t:"r",c:"International",r:4.7,rv:683,a:"ul. Ivan Denkoglu 40",p:"$$",h:"7AM–10PM"},
-{id:7,n:"Lavelé Kitchen&Bar",t:"r",c:"International",r:4.7,rv:1930,a:"ul. Laveleye 20",p:"$$",h:"8AM–12AM"},
-{id:8,n:"Piatto Collezione",t:"r",c:"Italian",r:4.7,rv:3663,a:"ul. Verila 5",p:"$$",h:"11AM–11PM"},
-{id:9,n:"Ploshtadcheto",t:"r",c:"European",r:4.8,rv:3219,a:"ul. Tsvetna Gradina 5",p:"$$",h:"12–11PM daily"},
-{id:10,n:"ARIA Restaurant",t:"r",c:"European",r:4.6,rv:881,a:"ul. Uzundzhovska 7-9",p:"$$",h:"12–11PM daily"},
-{id:11,n:"Osteria Tartufo",t:"r",c:"Italian",r:4.3,rv:2147,a:"ul. Hristo Belchev 32",p:"$$",h:"11AM–11PM daily"},
-{id:12,n:"Pastorant",t:"r",c:"Italian",r:4.5,rv:1148,a:"ul. Tsar Asen 16",p:"$$",h:"12–3PM, 6–10PM (closed Sun)"},
-{id:13,n:"Spaghetti Kitchen",t:"r",c:"Italian",r:4.3,rv:4450,a:"ul. 6-ti Septemvri 9",p:"$$",h:"12PM–12AM daily"},
-{id:14,n:"Hadjidraganov's Houses",t:"r",c:"Bulgarian",r:4.5,rv:7925,a:"ul. Kozloduy 75",p:"$$",h:"11:30AM–11:30PM"},
-{id:15,n:"Hadjidraganov's Cellars",t:"r",c:"Bulgarian",r:4.5,rv:10182,a:"ul. Hristo Belchev 18",p:"$$",h:"11:30AM–11PM daily"},
-{id:16,n:"Izbata Tavern",t:"r",c:"Bulgarian",r:4.4,rv:3847,a:"ul. Slavyanska 18",p:"$$",h:"11AM–12AM daily"},
-{id:17,n:"Manastirska Magernitsa",t:"r",c:"Bulgarian",r:4.3,rv:4370,a:"ul. Han Asparuh 67",p:"$$",h:"12–11PM daily"},
-{id:18,n:"The Sushi Bar",t:"r",c:"Japanese",r:4.5,rv:2088,a:"ul. Ivan Denkoglu 18",p:"$$$",h:"12–10PM daily"},
-{id:19,n:"Miyabi",t:"r",c:"Japanese",r:4.4,rv:1749,a:"ul. Stara Planina 5",p:"$$",h:"12–10PM daily"},
-{id:20,n:"HAMACHI-Ni",t:"r",c:"Japanese",r:4.5,rv:1983,a:"ul. G.S. Rakovski 179",p:"$$$",h:"12–10:30PM daily"},
-{id:21,n:"Umami",t:"r",c:"Japanese",r:4.5,rv:3953,a:"Blvd James Bourchier 100",p:"$$",h:"11:30AM–11:30PM"},
-{id:22,n:"JIRU Asian Restaurant",t:"r",c:"Asian",r:4.6,rv:414,a:"bul. Tsar Osvoboditel 16",p:"$$$",h:"12–4PM, 6:30–10:15PM"},
-{id:23,n:"Taj Mahal",t:"r",c:"Indian",r:4.3,rv:2158,a:"ul. 11-ti Avgust 11",p:"$$$",h:"11:30AM–10:30PM"},
-{id:24,n:"SATSANGA Vegetarian",t:"r",c:"Indian / Vegetarian",r:4.7,rv:1351,a:"ul. Georgi Benkovski 8",p:"$$",h:"9AM–10PM daily"},
-{id:25,n:"Saffron Indian",t:"r",c:"Indian",r:4.6,rv:1733,a:"Studentski Kompleks",p:"$$",h:"12–11PM"},
-{id:26,n:"India House",t:"r",c:"Indian",r:4.3,rv:503,a:"Hristo Botev Blvd 8",p:"$$",h:"12–10PM (closed Sun)"},
-{id:27,n:"Kohinoor I",t:"r",c:"Indian",r:4.5,rv:1457,a:"bul. Gotse Delchev 67",p:"$$",h:"12–10:30PM"},
-{id:28,n:"Mediterraneo",t:"r",c:"Mediterranean",r:4.4,rv:2086,a:"ul. Oborishte 9Б",p:"$$$",h:"12–11PM daily"},
-{id:29,n:"Capo Mediterranean",t:"r",c:"Mediterranean",r:4.4,rv:817,a:"ul. Saborna 14",p:"$$$",h:"11AM–12AM daily"},
-{id:30,n:"Mezza",t:"r",c:"Turkish",r:4.6,rv:1157,a:"ul. Angel Kanchev 19",p:"$$",h:"11:30AM–10:30PM"},
-{id:31,n:"Canteen Sofia",t:"r",c:"Mexican / Latin",r:4.6,rv:3014,a:"ul. Hristo Belchev 12",p:"$$",h:"11AM–4AM"},
-{id:32,n:"Los Muchachos",t:"r",c:"Mexican / Latin",r:4.7,rv:455,a:"ul. Tsar Simeon 51",p:"$$",h:"3–10PM (closed Mon/Sun)"},
-{id:33,n:"Señor Taco",t:"r",c:"Mexican / Latin",r:4.8,rv:141,a:"Dondukov Blvd 26",p:"$",h:"11AM–4:30PM (wkdays)"},
-{id:34,n:"Takoteka",t:"r",c:"Mexican / Latin",r:4.4,rv:1846,a:"ul. Tsar Shishman 22",p:"$$",h:"12–11PM daily"},
-{id:35,n:"Royal Thai",t:"r",c:"Thai",r:4.3,rv:1506,a:"ul. Slavyanska 24",p:"$$$",h:"12–10:15PM (closed Tue)"},
-{id:36,n:"Thai-Licious",t:"r",c:"Thai",r:4.8,rv:40,a:"ul. William Gladstone 12",p:"$",h:"12–7PM (closed Mon/Sun)"},
-{id:37,n:"Fake French",t:"r",c:"French",r:4.5,rv:1458,a:"ul. Knyaz Boris I 66",p:"$$$",h:"6:30–11PM daily"},
-{id:38,n:"L'étranger",t:"r",c:"French",r:4.7,rv:612,a:"ul. Tsar Simeon 78",p:"$$",h:"12–2:30PM, 6–10PM"},
-{id:39,n:"Anna's à la Française",t:"r",c:"French",r:4.3,rv:264,a:"ul. Oborishte 23",p:"$$$",h:"11AM–11PM daily"},
-{id:40,n:"Le Soleil Crepes",t:"r",c:"French / Café",r:4.8,rv:791,a:"ul. G.S. Rakovski 186",p:"$",h:"8AM–10PM daily"},
-{id:41,n:"Urban Legends",t:"r",c:"Steakhouse",r:4.5,rv:829,a:"ul. Aksakov 14",p:"$$$",h:"11AM–12AM daily"},
-{id:42,n:"Wok to Walk",t:"r",c:"Asian",r:4.1,rv:2733,a:"bul. Vitosha 8",p:"$$",h:"11AM–2AM daily"},
-{id:43,n:"Djanam Turkish",t:"r",c:"Turkish / Grill",r:4.1,rv:1721,a:"bul. Vitosha 24",p:"$$",h:"9AM–12AM daily"},
-{id:44,n:"Constantinoff RestoBar",t:"r",c:"Bulgarian",r:4.5,rv:2862,a:"bul. Vitosha 31-33",p:"$$",h:"11AM–12AM (Thu–Sun 1AM)"},
-{id:100,n:"Martines Specialty Coffee",t:"c",c:"Specialty Coffee",r:4.8,rv:650,a:"ul. Hristo Belchev 1A",p:"$$",h:"9AM–6PM daily"},
-{id:101,n:"Better Specialty Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:269,a:"ul. Neofit Rilski 59",p:"$$",h:"8AM–6PM daily"},
-{id:102,n:"Bloom Specialty Coffee",t:"c",c:"Specialty Coffee",r:4.9,rv:269,a:"ul. Veslets 23",p:"$$",h:"8AM–6PM daily"},
-{id:103,n:"FlavouRITs Coffee & Cocktails",t:"c",c:"Specialty Coffee",r:5.0,rv:123,a:"bul. Evlogi i Hristo Georgiev 15",p:"$$",h:"9AM–10PM (closed Mon)"},
-{id:104,n:"Gentoo Specialty Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:284,a:"ul. Neofit Rilski 34",p:"$",h:"8AM–5:30PM daily"},
-{id:105,n:"Up Coffee",t:"c",c:"Specialty Coffee",r:4.9,rv:153,a:"ul. Tri Ushi 6",p:"$",h:"8:30AM–5:30PM (wkdays)"},
-{id:106,n:"Urban Embassy Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:43,a:"ul. Slavyanska 3А",p:"$",h:"8AM–6PM daily"},
-{id:107,n:"The Coffee House",t:"c",c:"Specialty Coffee",r:5.0,rv:294,a:"bul. Tsar Osvoboditel 27",p:"$",h:"8AM–5:30PM daily"},
-{id:108,n:"The Family Coffee Roasters",t:"c",c:"Coffee Roastery",r:4.8,rv:208,a:"ul. G.S. Rakovski 163А",p:"$",h:"8AM–6:30PM daily"},
-{id:109,n:"Black Label Coffee & Bakery",t:"c",c:"Coffee Roastery",r:4.8,rv:775,a:"ul. Han Asparuh 13",p:"$$",h:"8AM–7:30PM daily"},
-{id:110,n:"EZAR Specialty Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:134,a:"ul. Aksakov 7А",p:"$",h:"8AM–5PM (wkdays)"},
-{id:111,n:"369 Specialty Coffee + Bakery",t:"c",c:"Specialty Coffee",r:4.7,rv:397,a:"bul. Patriarh Evtimiy 11",p:"$$",h:"9AM–5:30PM daily"},
-{id:112,n:"Dabov Specialty Coffee",t:"c",c:"Coffee Roastery",r:4.8,rv:256,a:"ul. Angel Kanchev 28",p:"$$",h:"8:30AM–6:30PM daily"},
+{id:1,n:"Shtastlivetsa",t:"r",c:"Bulgarian",r:4.5,rv:12367,a:"bul. Vitosha 27",p:"$$",h:"11AM\u201312AM daily"},
+{id:2,n:"Cosmos",t:"r",c:"Bulgarian Fusion",r:4.6,rv:3802,a:"ul. Laveleye 19",p:"$$$",h:"12\u20133:30PM, 5:30\u201310:30PM"},
+{id:3,n:"Staria Chinar",t:"r",c:"Bulgarian",r:4.7,rv:5889,a:"Dondukov Blvd 71",p:"$$",h:"11AM\u201311PM daily"},
+{id:4,n:"Unica",t:"r",c:"Italian",r:4.6,rv:1936,a:"bul. Tsar Osvoboditel 8A",p:"$$$",h:"12\u20133:30PM, 4:30\u201311PM"},
+{id:5,n:"Kuzina",t:"r",c:"Greek",r:4.8,rv:2565,a:"ul. Han Asparuh 36",p:"$$",h:"12\u201311:30PM daily"},
+{id:6,n:"COOK\u00d3 Kitchen:Drinks",t:"r",c:"International",r:4.7,rv:683,a:"ul. Ivan Denkoglu 40",p:"$$",h:"7AM\u201310PM"},
+{id:7,n:"Lavel\u00e9 Kitchen&Bar",t:"r",c:"International",r:4.7,rv:1930,a:"ul. Laveleye 20",p:"$$",h:"8AM\u201312AM"},
+{id:8,n:"Piatto Collezione",t:"r",c:"Italian",r:4.7,rv:3663,a:"ul. Verila 5",p:"$$",h:"11AM\u201311PM"},
+{id:9,n:"Ploshtadcheto",t:"r",c:"European",r:4.8,rv:3219,a:"ul. Tsvetna Gradina 5",p:"$$",h:"12\u201311PM daily"},
+{id:10,n:"ARIA Restaurant",t:"r",c:"European",r:4.6,rv:881,a:"ul. Uzundzhovska 7-9",p:"$$",h:"12\u201311PM daily"},
+{id:11,n:"Osteria Tartufo",t:"r",c:"Italian",r:4.3,rv:2147,a:"ul. Hristo Belchev 32",p:"$$",h:"11AM\u201311PM daily"},
+{id:12,n:"Pastorant",t:"r",c:"Italian",r:4.5,rv:1148,a:"ul. Tsar Asen 16",p:"$$",h:"12\u20133PM, 6\u201310PM (closed Sun)"},
+{id:13,n:"Spaghetti Kitchen",t:"r",c:"Italian",r:4.3,rv:4450,a:"ul. 6-ti Septemvri 9",p:"$$",h:"12PM\u201312AM daily"},
+{id:14,n:"Hadjidraganov's Houses",t:"r",c:"Bulgarian",r:4.5,rv:7925,a:"ul. Kozloduy 75",p:"$$",h:"11:30AM\u201311:30PM"},
+{id:15,n:"Hadjidraganov's Cellars",t:"r",c:"Bulgarian",r:4.5,rv:10182,a:"ul. Hristo Belchev 18",p:"$$",h:"11:30AM\u201311PM daily"},
+{id:16,n:"Izbata Tavern",t:"r",c:"Bulgarian",r:4.4,rv:3847,a:"ul. Slavyanska 18",p:"$$",h:"11AM\u201312AM daily"},
+{id:17,n:"Manastirska Magernitsa",t:"r",c:"Bulgarian",r:4.3,rv:4370,a:"ul. Han Asparuh 67",p:"$$",h:"12\u201311PM daily"},
+{id:18,n:"The Sushi Bar",t:"r",c:"Japanese",r:4.5,rv:2088,a:"ul. Ivan Denkoglu 18",p:"$$$",h:"12\u201310PM daily"},
+{id:19,n:"Miyabi",t:"r",c:"Japanese",r:4.4,rv:1749,a:"ul. Stara Planina 5",p:"$$",h:"12\u201310PM daily"},
+{id:20,n:"HAMACHI-Ni",t:"r",c:"Japanese",r:4.5,rv:1983,a:"ul. G.S. Rakovski 179",p:"$$$",h:"12\u201310:30PM daily"},
+{id:21,n:"Umami",t:"r",c:"Japanese",r:4.5,rv:3953,a:"Blvd James Bourchier 100",p:"$$",h:"11:30AM\u201311:30PM"},
+{id:22,n:"JIRU Asian Restaurant",t:"r",c:"Asian",r:4.6,rv:414,a:"bul. Tsar Osvoboditel 16",p:"$$$",h:"12\u20134PM, 6:30\u201310:15PM"},
+{id:23,n:"Taj Mahal",t:"r",c:"Indian",r:4.3,rv:2158,a:"ul. 11-ti Avgust 11",p:"$$$",h:"11:30AM\u201310:30PM"},
+{id:24,n:"SATSANGA Vegetarian",t:"r",c:"Indian / Vegetarian",r:4.7,rv:1351,a:"ul. Georgi Benkovski 8",p:"$$",h:"9AM\u201310PM daily"},
+{id:25,n:"Saffron Indian",t:"r",c:"Indian",r:4.6,rv:1733,a:"Studentski Kompleks",p:"$$",h:"12\u201311PM"},
+{id:26,n:"India House",t:"r",c:"Indian",r:4.3,rv:503,a:"Hristo Botev Blvd 8",p:"$$",h:"12\u201310PM (closed Sun)"},
+{id:27,n:"Kohinoor I",t:"r",c:"Indian",r:4.5,rv:1457,a:"bul. Gotse Delchev 67",p:"$$",h:"12\u201310:30PM"},
+{id:28,n:"Mediterraneo",t:"r",c:"Mediterranean",r:4.4,rv:2086,a:"ul. Oborishte 9\u0411",p:"$$$",h:"12\u201311PM daily"},
+{id:29,n:"Capo Mediterranean",t:"r",c:"Mediterranean",r:4.4,rv:817,a:"ul. Saborna 14",p:"$$$",h:"11AM\u201312AM daily"},
+{id:30,n:"Mezza",t:"r",c:"Turkish",r:4.6,rv:1157,a:"ul. Angel Kanchev 19",p:"$$",h:"11:30AM\u201310:30PM"},
+{id:31,n:"Canteen Sofia",t:"r",c:"Mexican / Latin",r:4.6,rv:3014,a:"ul. Hristo Belchev 12",p:"$$",h:"11AM\u20134AM"},
+{id:32,n:"Los Muchachos",t:"r",c:"Mexican / Latin",r:4.7,rv:455,a:"ul. Tsar Simeon 51",p:"$$",h:"3\u201310PM (closed Mon/Sun)"},
+{id:33,n:"Se\u00f1or Taco",t:"r",c:"Mexican / Latin",r:4.8,rv:141,a:"Dondukov Blvd 26",p:"$",h:"11AM\u20134:30PM (wkdays)"},
+{id:34,n:"Takoteka",t:"r",c:"Mexican / Latin",r:4.4,rv:1846,a:"ul. Tsar Shishman 22",p:"$$",h:"12\u201311PM daily"},
+{id:35,n:"Royal Thai",t:"r",c:"Thai",r:4.3,rv:1506,a:"ul. Slavyanska 24",p:"$$$",h:"12\u201310:15PM (closed Tue)"},
+{id:36,n:"Thai-Licious",t:"r",c:"Thai",r:4.8,rv:40,a:"ul. William Gladstone 12",p:"$",h:"12\u20137PM (closed Mon/Sun)"},
+{id:37,n:"Fake French",t:"r",c:"French",r:4.5,rv:1458,a:"ul. Knyaz Boris I 66",p:"$$$",h:"6:30\u201311PM daily"},
+{id:38,n:"L'\u00e9tranger",t:"r",c:"French",r:4.7,rv:612,a:"ul. Tsar Simeon 78",p:"$$",h:"12\u20132:30PM, 6\u201310PM"},
+{id:39,n:"Anna's \u00e0 la Fran\u00e7aise",t:"r",c:"French",r:4.3,rv:264,a:"ul. Oborishte 23",p:"$$$",h:"11AM\u201311PM daily"},
+{id:40,n:"Le Soleil Crepes",t:"r",c:"French / Caf\u00e9",r:4.8,rv:791,a:"ul. G.S. Rakovski 186",p:"$",h:"8AM\u201310PM daily"},
+{id:41,n:"Urban Legends",t:"r",c:"Steakhouse",r:4.5,rv:829,a:"ul. Aksakov 14",p:"$$$",h:"11AM\u201312AM daily"},
+{id:42,n:"Wok to Walk",t:"r",c:"Asian",r:4.1,rv:2733,a:"bul. Vitosha 8",p:"$$",h:"11AM\u20132AM daily"},
+{id:43,n:"Djanam Turkish",t:"r",c:"Turkish / Grill",r:4.1,rv:1721,a:"bul. Vitosha 24",p:"$$",h:"9AM\u201312AM daily"},
+{id:44,n:"Constantinoff RestoBar",t:"r",c:"Bulgarian",r:4.5,rv:2862,a:"bul. Vitosha 31-33",p:"$$",h:"11AM\u201312AM (Thu\u2013Sun 1AM)"},
+{id:45,n:"Fuji Asian Restaurant",t:"r",c:"Asian",r:4.7,rv:164,a:"bul. Tsar Osvoboditel 8A",p:"$$",h:"12\u20134PM, 6\u201311PM daily"},
+{id:46,n:"Arbat",t:"r",c:"Russian",r:4.4,rv:2121,a:"bul. Tsar Osvoboditel 10",p:"$$",h:"11:30AM\u201311PM daily"},
+{id:47,n:"MIZU Korean BBQ & Sushi",t:"r",c:"Korean / Asian",r:4.5,rv:484,a:"ul. Slavyanska 29",p:"$$",h:"12PM\u201312AM daily"},
+{id:48,n:"Victoria Tsar Osvoboditel",t:"r",c:"International",r:4.1,rv:2903,a:"bul. Tsar Osvoboditel 7",p:"$$",h:"12\u201311PM daily"},
+{id:49,n:"Happy Bar & Grill Sv. Nedelya",t:"r",c:"International",r:4.5,rv:18763,a:"pl. Sveta Nedelya 4",p:"$$",h:"11AM\u201311PM daily"},
+{id:50,n:"The Friendly Bear",t:"r",c:"Bulgarian",r:4.5,rv:1357,a:"ul. Slavyanska 23",p:"$$",h:"5\u201311PM (closed Mon)"},
+{id:51,n:"Skapto Shishman",t:"r",c:"Burgers",r:4.4,rv:3778,a:"ul. Tsar Shishman 20",p:"$$",h:"11:30AM\u201310:30PM"},
+{id:52,n:"Osteria Luce",t:"r",c:"Italian",r:4.5,rv:532,a:"ul. General Gurko 38",p:"$$$",h:"12\u20134PM, 6\u201310PM daily"},
+{id:53,n:"1920 \u0428\u0438\u0448\u043c\u0430\u043d",t:"r",c:"Balkan / Modern",r:4.5,rv:180,a:"ul. Tsar Shishman 24",p:"$$$",h:"10AM\u201310PM (Sat from 8AM)"},
+{id:54,n:"Made in Blue",t:"r",c:"European",r:4.2,rv:2327,a:"ul. Yuri Venelin 6",p:"$$$",h:"12\u201311PM daily"},
+{id:55,n:"The Little Things",t:"r",c:"European",r:4.4,rv:3337,a:"ul. Tsar Shishman 37",p:"$$",h:"12\u201310PM (closed Mon/Tue)"},
+{id:56,n:"Mamma Mia",t:"r",c:"Italian",r:4.3,rv:2046,a:"ul. Tsar Shishman 39",p:"$$",h:"11AM\u201311:30PM daily"},
+{id:57,n:"La Passione",t:"r",c:"Italian",r:4.5,rv:542,a:"bul. Vasil Levski 51",p:"$$",h:"12\u201311PM daily"},
+{id:58,n:"Ginger Sushi Bar",t:"r",c:"Japanese",r:4.6,rv:309,a:"ul. General Parensov 24\u0410",p:"$$",h:"11AM\u20139PM daily"},
+{id:59,n:"Tenebris",t:"r",c:"Fine Dining",r:4.8,rv:871,a:"ul. Han Asparuh 65",p:"$$$",h:"6\u201310PM (closed Mon/Sun)"},
+{id:60,n:"\u0414\u0432\u0430\u043c\u0430 \u0411\u0440\u0430\u0442\u044f 2023",t:"r",c:"Bulgarian",r:4.5,rv:238,a:"bul. Patriarh Evtimiy 44",p:"$$",h:"10AM\u201310PM daily"},
+{id:61,n:"CRAFT Bistro Sofia",t:"r",c:"Mediterranean",r:4.5,rv:1244,a:"ul. Tsar Asen 53",p:"$$",h:"12PM\u201312AM daily"},
+{id:62,n:"\u0422\u0440\u0430\u0444\u0430 1995",t:"r",c:"Bulgarian / Pub",r:4.2,rv:574,a:"ul. William Gladstone 27",p:"$",h:"4\u201310:30PM (wkends from 12)"},
+{id:63,n:"\u041a\u0430\u0440\u0442\u043e\u0424\u044a\u0442",t:"r",c:"Casual / Street Food",r:4.2,rv:723,a:"ul. William Gladstone 27",p:"$",h:"11AM\u201310PM daily"},
+{id:64,n:"Moma Bulgarian Food & Wine",t:"r",c:"Bulgarian",r:4.2,rv:5256,a:"Solunska Street 28",p:"$$",h:"12:30\u201311:30PM daily"},
+{id:65,n:"Burrata Holiday Park",t:"r",c:"Italian",r:4.9,rv:568,a:"bul. Nikola Mushanov 149a",p:"$$",h:"11AM\u201310:30PM daily"},
+{id:66,n:"Art Club Museum",t:"r",c:"International",r:4.3,rv:3108,a:"ul. Saborna 2",p:"$$",h:"8AM\u20131AM daily"},
+{id:67,n:"Egur Egur",t:"r",c:"Armenian",r:4.3,rv:2432,a:"ul. G.S. Rakovski 92",p:"$$",h:"12\u201311:30PM daily"},
+{id:68,n:"Re Club",t:"r",c:"International",r:4.2,rv:399,a:"ul. Moskovska 29",p:"$$",h:"8AM\u201311:30PM daily"},
+{id:69,n:"The Revolutionary Dining Room",t:"r",c:"Fine Dining",r:4.3,rv:369,a:"bul. Vasil Levski Square",p:"$$$",h:"12\u201311PM daily"},
+{id:70,n:"Episode Eatery",t:"r",c:"Fine Dining",r:4.3,rv:44,a:"ul. Chataldzha 24",p:"$$$",h:"6:30\u201310:30PM (closed Mon/Tue)"},
+{id:71,n:"Jardin Restaurant",t:"r",c:"European",r:4.2,rv:198,a:"ul. Oborishte 35",p:"$$$",h:"12\u201310PM daily"},
+{id:72,n:"Quch\u00e937",t:"r",c:"French / Caf\u00e9",r:4.1,rv:361,a:"ul. Oborishte 37",p:"$$",h:"10AM\u201310PM daily"},
+{id:73,n:"Atelier",t:"r",c:"French",r:4.4,rv:1141,a:"ul. Prof. Asen Zlatarov 16",p:"$$",h:"12\u201311PM daily"},
+{id:74,n:"Rainbow Factory 2",t:"r",c:"Brunch / Bulgarian",r:4.5,rv:2087,a:"ul. Sheynovo 13B",p:"$$",h:"8AM\u20138PM daily"},
+{id:75,n:"Restaurant Troika",t:"r",c:"European",r:4.6,rv:320,a:"ul. Prof. Asen Zlatarov 21",p:"$$",h:"12:30\u201310PM daily"},
+{id:76,n:"Ribs&Sticks \u0413\u0435\u043e \u041c\u0438\u043b\u0435\u0432",t:"r",c:"American / BBQ",r:4.4,rv:1415,a:"ul. Boris Hristov 20",p:"$$",h:"11:30AM\u201310PM daily"},
+{id:77,n:"\u0420\u0435\u0441\u0442\u043e\u0440\u0430\u043d\u0442 \u0421\u0412\u0415\u0422\u041b\u0410",t:"r",c:"Bulgarian / Modern",r:4.7,rv:1687,a:"ul. Svilenitsa 12",p:"$$$",h:"12\u201311PM (closed Mon)"},
+{id:78,n:"Chevermeto",t:"r",c:"Bulgarian",r:4.0,rv:1981,a:"pl. Bulgaria 1, NDK",p:"$$",h:"12PM\u201312AM daily"},
+{id:79,n:"Bankovich",t:"r",c:"Balkan / Modern",r:4.4,rv:1717,a:"ul. 6-ti Septemvri 55",p:"$$",h:"12\u201311PM daily"},
+{id:80,n:"DANA near&far",t:"r",c:"International",r:4.8,rv:174,a:"ul. Yakubitsa 13",p:"$$",h:"10AM\u201310PM (closed Mon/Sun)"},
+{id:81,n:"Roma Bene Maleeva",t:"r",c:"Italian",r:4.7,rv:968,a:"bul. N. Vaptsarov 57",p:"$$",h:"12\u201311PM daily"},
+{id:82,n:"Azahar Spanish Restaurant",t:"r",c:"Spanish",r:4.5,rv:536,a:"ul. Krum Popov 84",p:"$$$",h:"12\u20134PM, 6:30\u201310PM daily"},
+{id:83,n:"Padre Restaurant",t:"r",c:"International",r:4.8,rv:648,a:"ul. Chervena Stena 58",p:"$$",h:"11AM\u201310PM (closed Sun)"},
+{id:84,n:"Mediterra Wine Bar",t:"r",c:"Mediterranean",r:4.3,rv:325,a:"bul. Vitosha 89b",p:"$$$",h:"12\u201311PM daily"},
+{id:85,n:"Mi Casa",t:"r",c:"International",r:4.4,rv:1610,a:"ul. Iskar 1",p:"$$",h:"9AM\u201310PM daily"},
+{id:86,n:"Niko'las 0/360",t:"r",c:"Fine Dining",r:4.6,rv:1520,a:"pl. Rayko Daskalov 3",p:"$$$",h:"12\u201311PM (closed Sun)"},
+{id:87,n:"AURA by Bamboo",t:"r",c:"International",r:4.4,rv:1478,a:"blvd. Bulgaria 1",p:"$$$",h:"9AM\u20133AM daily"},
+{id:100,n:"Martines Specialty Coffee",t:"c",c:"Specialty Coffee",r:4.8,rv:650,a:"ul. Hristo Belchev 1A",p:"$$",h:"9AM\u20136PM daily"},
+{id:101,n:"Better Specialty Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:269,a:"ul. Neofit Rilski 59",p:"$$",h:"8AM\u20136PM daily"},
+{id:102,n:"Bloom Specialty Coffee",t:"c",c:"Specialty Coffee",r:4.9,rv:269,a:"ul. Veslets 23",p:"$$",h:"8AM\u20136PM daily"},
+{id:103,n:"FlavouRITs Coffee & Cocktails",t:"c",c:"Specialty Coffee",r:5.0,rv:123,a:"bul. Evlogi i Hristo Georgiev 15",p:"$$",h:"9AM\u201310PM (closed Mon)"},
+{id:104,n:"Gentoo Specialty Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:284,a:"ul. Neofit Rilski 34",p:"$",h:"8AM\u20135:30PM daily"},
+{id:105,n:"Up Coffee",t:"c",c:"Specialty Coffee",r:4.9,rv:153,a:"ul. Tri Ushi 6",p:"$",h:"8:30AM\u20135:30PM (wkdays)"},
+{id:106,n:"Urban Embassy Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:43,a:"ul. Slavyanska 3\u0410",p:"$",h:"8AM\u20136PM daily"},
+{id:107,n:"The Coffee House",t:"c",c:"Specialty Coffee",r:5.0,rv:294,a:"bul. Tsar Osvoboditel 27",p:"$",h:"8AM\u20135:30PM daily"},
+{id:108,n:"The Family Coffee Roasters",t:"c",c:"Coffee Roastery",r:4.8,rv:208,a:"ul. G.S. Rakovski 163\u0410",p:"$",h:"8AM\u20136:30PM daily"},
+{id:109,n:"Black Label Coffee & Bakery",t:"c",c:"Coffee Roastery",r:4.8,rv:775,a:"ul. Han Asparuh 13",p:"$$",h:"8AM\u20137:30PM daily"},
+{id:110,n:"EZAR Specialty Coffee",t:"c",c:"Specialty Coffee",r:5.0,rv:134,a:"ul. Aksakov 7\u0410",p:"$",h:"8AM\u20135PM (wkdays)"},
+{id:111,n:"369 Specialty Coffee + Bakery",t:"c",c:"Specialty Coffee",r:4.7,rv:397,a:"bul. Patriarh Evtimiy 11",p:"$$",h:"9AM\u20135:30PM daily"},
+{id:112,n:"Dabov Specialty Coffee",t:"c",c:"Coffee Roastery",r:4.8,rv:256,a:"ul. Angel Kanchev 28",p:"$$",h:"8:30AM\u20136:30PM daily"}
 ];
-const CC={"Bulgarian":{b:"#2D5016",t:"#A8E06C",lb:"#E8F5D6",lt:"#2D5016"},"Bulgarian Fusion":{b:"#3D6020",t:"#C4F084",lb:"#EBF7D8",lt:"#3D6020"},"Italian":{b:"#8B2500",t:"#FFB088",lb:"#FDE8DC",lt:"#8B2500"},"Greek":{b:"#1A4B7A",t:"#7EC8E3",lb:"#DCEEF8",lt:"#1A4B7A"},"European":{b:"#4A2D6B",t:"#C9A8F0",lb:"#EDE4F8",lt:"#4A2D6B"},"International":{b:"#5C4033",t:"#D4A574",lb:"#F0E4D8",lt:"#5C4033"},"Japanese":{b:"#8B0000",t:"#FF9999",lb:"#FDE0E0",lt:"#8B0000"},"Asian":{b:"#A0522D",t:"#FFD4A0",lb:"#FCECD8",lt:"#7A3D20"},"Indian":{b:"#B8860B",t:"#FFE4A0",lb:"#FDF0D0",lt:"#8B6508"},"Indian / Vegetarian":{b:"#6B8E23",t:"#D4E88C",lb:"#EDF5D4",lt:"#4A6418"},"Mediterranean":{b:"#006B5A",t:"#80E0CC",lb:"#D8F4EE",lt:"#006B5A"},"Turkish":{b:"#8B4513",t:"#F0C090",lb:"#F4E4D0",lt:"#6B3410"},"Turkish / Grill":{b:"#7A3B10",t:"#E8B080",lb:"#F2E0CC",lt:"#6B3410"},"Mexican / Latin":{b:"#C41E3A",t:"#FFB0C0",lb:"#FCDCE4",lt:"#9A1830"},"Thai":{b:"#7B2D8B",t:"#E0A8F0",lb:"#F0E0F6",lt:"#5C2068"},"French":{b:"#1B3A5C",t:"#A0C8E8",lb:"#DCE8F4",lt:"#1B3A5C"},"French / Café":{b:"#2C4A6C",t:"#B0D0E8",lb:"#E0ECF4",lt:"#2C4A6C"},"Steakhouse":{b:"#4A0E0E",t:"#E8A0A0",lb:"#F4DCDC",lt:"#4A0E0E"},"Specialty Coffee":{b:"#5C3317",t:"#E8C49A",lb:"#F4E8D8",lt:"#5C3317"},"Coffee Roastery":{b:"#6B3A1F",t:"#F0D0A0",lb:"#F6ECD8",lt:"#6B3A1F"}};
+const CC={"Bulgarian":{b:"#2D5016",t:"#A8E06C",lb:"#E8F5D6",lt:"#2D5016"},"Bulgarian Fusion":{b:"#3D6020",t:"#C4F084",lb:"#EBF7D8",lt:"#3D6020"},"Italian":{b:"#8B2500",t:"#FFB088",lb:"#FDE8DC",lt:"#8B2500"},"Greek":{b:"#1A4B7A",t:"#7EC8E3",lb:"#DCEEF8",lt:"#1A4B7A"},"European":{b:"#4A2D6B",t:"#C9A8F0",lb:"#EDE4F8",lt:"#4A2D6B"},"International":{b:"#5C4033",t:"#D4A574",lb:"#F0E4D8",lt:"#5C4033"},"Japanese":{b:"#8B0000",t:"#FF9999",lb:"#FDE0E0",lt:"#8B0000"},"Asian":{b:"#A0522D",t:"#FFD4A0",lb:"#FCECD8",lt:"#7A3D20"},"Indian":{b:"#B8860B",t:"#FFE4A0",lb:"#FDF0D0",lt:"#8B6508"},"Indian / Vegetarian":{b:"#6B8E23",t:"#D4E88C",lb:"#EDF5D4",lt:"#4A6418"},"Mediterranean":{b:"#006B5A",t:"#80E0CC",lb:"#D8F4EE",lt:"#006B5A"},"Turkish":{b:"#8B4513",t:"#F0C090",lb:"#F4E4D0",lt:"#6B3410"},"Turkish / Grill":{b:"#7A3B10",t:"#E8B080",lb:"#F2E0CC",lt:"#6B3410"},"Mexican / Latin":{b:"#C41E3A",t:"#FFB0C0",lb:"#FCDCE4",lt:"#9A1830"},"Thai":{b:"#7B2D8B",t:"#E0A8F0",lb:"#F0E0F6",lt:"#5C2068"},"French":{b:"#1B3A5C",t:"#A0C8E8",lb:"#DCE8F4",lt:"#1B3A5C"},"French / Café":{b:"#2C4A6C",t:"#B0D0E8",lb:"#E0ECF4",lt:"#2C4A6C"},"Steakhouse":{b:"#4A0E0E",t:"#E8A0A0",lb:"#F4DCDC",lt:"#4A0E0E"},"Specialty Coffee":{b:"#5C3317",t:"#E8C49A",lb:"#F4E8D8",lt:"#5C3317"},"Coffee Roastery":{b:"#6B3A1F",t:"#F0D0A0",lb:"#F6ECD8",lt:"#6B3A1F"},"Russian":{b:"#1B4D3E",t:"#8FD4B8",lb:"#D8F0E8",lt:"#1B4D3E"},"Korean / Asian":{b:"#7A2040",t:"#F0A0B8",lb:"#F8D8E0",lt:"#6A1835"},"Burgers":{b:"#8B4000",t:"#FFB870",lb:"#FCE8D0",lt:"#6B3000"},"Balkan / Modern":{b:"#3A5020",t:"#B8D880",lb:"#E8F0D4",lt:"#2D4018"},"Fine Dining":{b:"#2A1A40",t:"#B898D8",lb:"#E8E0F0",lt:"#2A1A40"},"Bulgarian / Pub":{b:"#405020",t:"#C0D890",lb:"#E8F0D8",lt:"#2D3D14"},"Casual / Street Food":{b:"#6B5030",t:"#E0C490",lb:"#F4E8D4",lt:"#5A4020"},"Armenian":{b:"#7A2D1A",t:"#F0B090",lb:"#F8E0D0",lt:"#5C2010"},"Brunch / Bulgarian":{b:"#4A6020",t:"#C4E080",lb:"#E8F4D4",lt:"#3A4C18"},"American / BBQ":{b:"#6B1A1A",t:"#E8A0A0",lb:"#F4DCDC",lt:"#5A1010"},"Bulgarian / Modern":{b:"#2D5020",t:"#A8E070",lb:"#E0F0D0",lt:"#2D5020"},"Spanish":{b:"#8B2020",t:"#FFA888",lb:"#FDE0D4",lt:"#7A1818"}};
 let S={search:"",cuisines:[],sort:"rating",vis:"all",typeF:"all",ud:{},custom:[],addOpen:false,cuisineOpen:false,theme:"light",_at:"r"};
 let _no=new Set();
-function load(){try{const s=localStorage.getItem("sofia-eats-v4");if(s){const d=JSON.parse(s);S.ud=d.ud||{};S.custom=d.custom||[];S.theme=d.theme||"light";}}catch(e){}document.documentElement.setAttribute("data-theme",S.theme)}
-function save(){try{localStorage.setItem("sofia-eats-v4",JSON.stringify({ud:S.ud,custom:S.custom,theme:S.theme}))}catch(e){}}
+function load(){try{const s=localStorage.getItem("sofia-eats-v5");if(s){const d=JSON.parse(s);S.ud=d.ud||{};S.custom=d.custom||[];S.theme=d.theme||"light";}}catch(e){}document.documentElement.setAttribute("data-theme",S.theme)}
+function save(){try{localStorage.setItem("sofia-eats-v5",JSON.stringify({ud:S.ud,custom:S.custom,theme:S.theme}))}catch(e){}}
 function all(){return[...D,...S.custom]}
 function cuis(){return[...new Set(all().map(x=>x.c))].sort()}
 function esc(s){return s?s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}
 function dk(){return S.theme==="dark"}
-function stars(r){let h='<div class="stars">';for(let i=0;i<5;i++){const f=i<Math.floor(r)?1:i===Math.floor(r)?r-Math.floor(r):0;h+=`<svg width="13" height="13" viewBox="0 0 20 20"><defs><linearGradient id="s${r}${i}"><stop offset="${f*100}%" stop-color="var(--star)"/><stop offset="${f*100}%" stop-color="${dk()?"#374151":"#D0D0CC"}"/></linearGradient></defs><path d="M10 1l2.5 5.5L18 7.5l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1z" fill="url(#s${r}${i})"/></svg>`}h+=`<span class="star-val">${r}</span></div>`;return h}
-function bs(c){const o=CC[c]||{b:"#555",t:"#ccc",lb:"#eee",lt:"#333"};return dk()?`background:${o.b};color:${o.t}`:`background:${o.lb};color:${o.lt}`}
-function ps(c,a){const o=CC[c]||{b:"#555",t:"#ccc",lb:"#eee",lt:"#333"};if(!a)return`background:transparent;color:var(--tx3)`;return dk()?`background:${o.b};color:${o.t}`:`background:${o.lb};color:${o.lt}`}
-function card(item){const ud=S.ud[item.id]||{};const v=ud.visited;const hn=!!ud.note;const icon=item.t==="c"?"☕":item.custom?"📌":"";const gc=dk()?"#22C55E":"#16A34A";const bc=dk()?"#3B82F6":"#2563EB";
-return`<div class="card${v?" visited":""}"><div class="card-bar"></div><div class="card-top"><div class="card-info"><div class="card-header">${icon?`<span style="font-size:14px">${icon}</span>`:""}<span class="card-name">${esc(item.n)}</span><span class="badge" style="${bs(item.c)}">${esc(item.c)}</span></div>${stars(item.r)}<div class="card-meta">${item.rv>0?`<span>${item.rv.toLocaleString()} reviews</span>`:""} ${item.p?`<span>${item.p}</span>`:""}<span>${esc(item.a)}</span></div>${item.h?`<div class="card-hours">${esc(item.h)}</div>`:""}</div><div class="card-btns"><button class="icon-btn${v?" check-on":""}" onclick="toggleVisit(${item.id})">${v?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${gc}" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`}</button><button class="icon-btn${hn?" note-on":""}" onclick="toggleNote(${item.id})"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${hn?bc:"var(--tx3)"}" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button></div></div>${hn&&!_no.has(item.id)?`<div class="note-box">${esc(ud.note)}</div>`:""} ${_no.has(item.id)?`<div class="note-editor"><textarea class="note-textarea" id="nt-${item.id}" placeholder="What did you order? Would you return?">${esc(ud.note||"")}</textarea><button class="note-save" onclick="saveNote(${item.id})">Save</button><div style="clear:both"></div></div>`:""}</div>`}
-function addForm(){if(!S.addOpen)return"";const ok=S._an&&S._ac&&S._ar;return`<div class="add-form"><div class="add-title"><h3>Add a place</h3><button class="close-x" onclick="S.addOpen=false;R()">✕</button></div><div class="row" style="margin-top:0;margin-bottom:12px"><button class="chip${S._at!=="c"?" active":""}" onclick="S._at='r';R()">🍽 Restaurant</button><button class="chip${S._at==="c"?" active":""}" onclick="S._at='c';R()">☕ Coffee</button></div><div class="form-group"><div class="form-label">Name *</div><input class="form-input" id="af-n" placeholder="e.g. My Favorite Spot" value="${esc(S._an||"")}"></div><div class="form-row"><div class="form-group" style="flex:2"><div class="form-label">Cuisine / Category *</div><input class="form-input" id="af-c" placeholder="e.g. Italian, Brunch" value="${esc(S._ac||"")}"></div><div class="form-group" style="flex:1"><div class="form-label">Rating *</div><input class="form-input" id="af-r" type="number" min="0" max="5" step="0.1" placeholder="4.5" value="${S._ar||""}"></div></div><div class="form-row"><div class="form-group" style="flex:2"><div class="form-label">Address</div><input class="form-input" id="af-a" placeholder="ul. Example 12" value="${esc(S._aa||"")}"></div><div class="form-group" style="flex:1"><div class="form-label">Price</div><select class="form-input" id="af-p" style="cursor:pointer"><option value="$"${S._ap==="$"?" selected":""}>$</option><option value="$$"${(S._ap||"$$")==="$$"?" selected":""}>$$</option><option value="$$$"${S._ap==="$$$"?" selected":""}>$$$</option></select></div></div><div class="form-group"><div class="form-label">Hours (optional)</div><input class="form-input" id="af-h" placeholder="e.g. 9AM–6PM daily" value="${esc(S._ah||"")}"></div><button class="submit-btn ${ok?"on":"off"}" onclick="submitAdd()">Add to list</button></div>`}
+function stars(r){let h='<div class="st">';for(let i=0;i<5;i++){const f=i<Math.floor(r)?1:i===Math.floor(r)?r-Math.floor(r):0;h+=`<svg width="13" height="13" viewBox="0 0 20 20"><defs><linearGradient id="s${r}${i}"><stop offset="${f*100}%" stop-color="var(--star)"/><stop offset="${f*100}%" stop-color="${dk()?"#374151":"#D0D0CC"}"/></linearGradient></defs><path d="M10 1l2.5 5.5L18 7.5l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1z" fill="url(#s${r}${i})"/></svg>`}h+=`<span class="sv">${r}</span></div>`;return h}
+function bst(c){const o=CC[c]||{b:"#555",t:"#ccc",lb:"#eee",lt:"#333"};return dk()?`background:${o.b};color:${o.t}`:`background:${o.lb};color:${o.lt}`}
+function pst(c,a){const o=CC[c]||{b:"#555",t:"#ccc",lb:"#eee",lt:"#333"};if(!a)return`background:transparent;color:var(--tx3)`;return dk()?`background:${o.b};color:${o.t}`:`background:${o.lb};color:${o.lt}`}
+function card(item){const ud=S.ud[item.id]||{};const v=ud.visited;const hn=!!ud.note;const icon=item.t==="c"?"☕":"";const gc=dk()?"#22C55E":"#16A34A";const bc=dk()?"#3B82F6":"#2563EB";
+return`<div class="cd${v?" v":""}"><div class="cb2"></div><div class="ct2"><div class="ci"><div class="cr">${icon?`<span style="font-size:14px">${icon}</span>`:""}<span class="nm">${esc(item.n)}</span><span class="bd" style="${bst(item.c)}">${esc(item.c)}</span></div>${stars(item.r)}<div class="mt">${item.rv>0?`<span>${item.rv.toLocaleString()} reviews</span>`:""} ${item.p?`<span>${item.p}</span>`:""}<span>${esc(item.a)}</span></div>${item.h?`<div class="hr">${esc(item.h)}</div>`:""}</div><div class="bs"><button class="ib${v?" co":""}" onclick="toggleVisit(${item.id})">${v?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${gc}" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`}</button><button class="ib${hn?" no":""}" onclick="toggleNote(${item.id})"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${hn?bc:"var(--tx3)"}" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button></div></div>${hn&&!_no.has(item.id)?`<div class="nb">${esc(ud.note)}</div>`:""} ${_no.has(item.id)?`<div class="ne"><textarea class="nt" id="nt-${item.id}" placeholder="What did you order? Would you return?">${esc(ud.note||"")}</textarea><button class="ns" onclick="saveNote(${item.id})">Save</button><div style="clear:both"></div></div>`:""}</div>`}
+function addForm(){if(!S.addOpen)return"";const ok=S._an&&S._ac&&S._ar;return`<div class="af"><div class="at"><h3>Add a place</h3><button class="cx" onclick="S.addOpen=false;R()">✕</button></div><div class="rw" style="margin-top:0;margin-bottom:12px"><button class="ch${S._at!=="c"?" a":""}" onclick="S._at='r';R()">🍽 Restaurant</button><button class="ch${S._at==="c"?" a":""}" onclick="S._at='c';R()">☕ Coffee</button></div><div class="fg"><div class="fl">Name *</div><input class="fi" id="af-n" placeholder="e.g. My Favorite Spot" value="${esc(S._an||"")}"></div><div class="fr"><div class="fg" style="flex:2"><div class="fl">Cuisine / Category *</div><input class="fi" id="af-c" placeholder="e.g. Italian, Brunch" value="${esc(S._ac||"")}"></div><div class="fg" style="flex:1"><div class="fl">Rating *</div><input class="fi" id="af-r" type="number" min="0" max="5" step="0.1" placeholder="4.5" value="${S._ar||""}"></div></div><div class="fr"><div class="fg" style="flex:2"><div class="fl">Address</div><input class="fi" id="af-a" placeholder="ul. Example 12" value="${esc(S._aa||"")}"></div><div class="fg" style="flex:1"><div class="fl">Price</div><select class="fi" id="af-p" style="cursor:pointer"><option value="$"${S._ap==="$"?" selected":""}>$</option><option value="$$"${(S._ap||"$$")==="$$"?" selected":""}>$$</option><option value="$$$"${S._ap==="$$$"?" selected":""}>$$$</option></select></div></div><div class="fg"><div class="fl">Hours (optional)</div><input class="fi" id="af-h" placeholder="e.g. 9AM–6PM daily" value="${esc(S._ah||"")}"></div><button class="sb ${ok?"on":"of"}" onclick="submitAdd()">Add to list</button></div>`}
 function R(){const ap=all();const cs=cuis();const filt=ap.filter(x=>{const ms=!S.search||x.n.toLowerCase().includes(S.search.toLowerCase())||x.c.toLowerCase().includes(S.search.toLowerCase())||x.a.toLowerCase().includes(S.search.toLowerCase());const mc=S.cuisines.length===0||S.cuisines.includes(x.c);const mv=S.vis==="all"?true:S.vis==="visited"?S.ud[x.id]?.visited:!S.ud[x.id]?.visited;const mt=S.typeF==="all"?true:x.t===S.typeF;return ms&&mc&&mv&&mt}).sort((a,b)=>S.sort==="rating"?b.r-a.r:S.sort==="reviews"?b.rv-a.rv:a.n.localeCompare(b.n));const vc=Object.values(S.ud).filter(u=>u.visited).length;const sc=S.cuisines.length;
-document.getElementById("app").innerHTML=`<div class="header"><div style="max-width:680px;margin:0 auto"><div class="hdr-top"><div><div class="title">Sofia Eats</div><span class="subtitle">RESTAURANTS · COFFEE · 5KM · 3.8+</span></div><div class="hdr-actions"><button class="theme-btn" onclick="toggleTheme()">${dk()?'☀️':'🌙'}</button><button class="add-btn" onclick="S.addOpen=!S.addOpen;R()">${S.addOpen?"✕ Cancel":"+ Add"}</button></div></div><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:${(vc/ap.length)*100}%"></div></div><span class="progress-text">${vc}/${ap.length}</span></div><div class="row">${[{k:"all",l:"All"},{k:"r",l:"🍽 Restaurants"},{k:"c",l:"☕ Coffee"}].map(x=>`<button class="chip${S.typeF===x.k?" active":""}" onclick="S.typeF='${x.k}';R()">${x.l}</button>`).join("")}</div><div class="search-wrap"><svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input class="search-input" id="sbox" placeholder="Search name, cuisine, address..." value="${esc(S.search)}"></div><button class="cuisine-toggle${S.cuisineOpen?" open":""}" onclick="S.cuisineOpen=!S.cuisineOpen;R()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>Filter by cuisine ${sc>0?`<span class="cbadge">${sc}</span>`:""}</button><div class="pills-wrap${S.cuisineOpen?" open":""}"><div class="pills">${cs.map(c=>{const a=S.cuisines.includes(c);return`<button class="pill" style="${ps(c,a)};border:1px solid ${a?"var(--bd2)":"var(--bd1)"}" onclick="toggleCuisine('${c.replace(/'/g,"\\'")}')">${c}</button>`}).join("")}${sc>0?`<button class="pill" style="color:var(--tx3);border:1px solid var(--bd1)" onclick="S.cuisines=[];R()">Clear all</button>`:""}</div></div><div class="row" style="margin-top:8px">${["all","visited","unvisited"].map(v=>`<button class="chip${S.vis===v?" active":""}" onclick="S.vis='${v}';R()">${v}</button>`).join("")}<select class="sort-select" id="sortbox"><option value="rating"${S.sort==="rating"?" selected":""}>Sort: Rating</option><option value="reviews"${S.sort==="reviews"?" selected":""}>Sort: Reviews</option><option value="name"${S.sort==="name"?" selected":""}>Sort: A–Z</option></select></div></div></div><div class="list">${addForm()}<div class="count">${filt.length} PLACE${filt.length!==1?"S":""}${sc?` · ${S.cuisines.join(", ")}`:""}</div>${filt.map(card).join("")}${filt.length===0?`<div class="empty">No places match your filters.<br><button class="clear-btn" onclick="S.search='';S.cuisines=[];S.vis='all';S.typeF='all';R()">Clear all filters</button></div>`:""}</div>`;
+document.getElementById("app").innerHTML=`<div class="hd"><div style="max-width:680px;margin:0 auto"><div class="ht"><div><div class="ti">Sofia Eats</div><span class="su">RESTAURANTS · COFFEE · 5KM · 3.8+</span></div><div class="ha"><button class="tb" onclick="toggleTheme()">${dk()?'☀️':'🌙'}</button><button class="ab" onclick="S.addOpen=!S.addOpen;R()">${S.addOpen?"✕ Cancel":"+ Add"}</button></div></div><div class="pw"><div class="pb"><div class="pf" style="width:${(vc/ap.length)*100}%"></div></div><span class="pt">${vc}/${ap.length}</span></div><div class="rw">${[{k:"all",l:"All"},{k:"r",l:"🍽 Restaurants"},{k:"c",l:"☕ Coffee"}].map(x=>`<button class="ch${S.typeF===x.k?" a":""}" onclick="S.typeF='${x.k}';R()">${x.l}</button>`).join("")}</div><div class="sw"><svg class="si" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input class="sx" id="sbox" placeholder="Search name, cuisine, address..." value="${esc(S.search)}"></div><button class="ct${S.cuisineOpen?" o":""}" onclick="S.cuisineOpen=!S.cuisineOpen;R()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>Filter by cuisine ${sc>0?`<span class="cb">${sc}</span>`:""}</button><div class="plw${S.cuisineOpen?" o":""}"><div class="pls">${cs.map(c=>{const a=S.cuisines.includes(c);return`<button class="pl" style="${pst(c,a)};border:1px solid ${a?"var(--bd2)":"var(--bd1)"}" onclick="toggleCuisine('${c.replace(/'/g,"\\'")}')">${c}</button>`}).join("")}${sc>0?`<button class="pl" style="color:var(--tx3);border:1px solid var(--bd1)" onclick="S.cuisines=[];R()">Clear all</button>`:""}</div></div><div class="rw" style="margin-top:8px">${["all","visited","unvisited"].map(v=>`<button class="ch${S.vis===v?" a":""}" onclick="S.vis='${v}';R()">${v}</button>`).join("")}<select class="ss" id="sortbox"><option value="rating"${S.sort==="rating"?" selected":""}>Sort: Rating</option><option value="reviews"${S.sort==="reviews"?" selected":""}>Sort: Reviews</option><option value="name"${S.sort==="name"?" selected":""}>Sort: A–Z</option></select></div></div></div><div class="ls">${addForm()}<div class="cn">${filt.length} PLACE${filt.length!==1?"S":""}${sc?` · ${S.cuisines.join(", ")}`:""}</div>${filt.map(card).join("")}${filt.length===0?`<div class="em">No places match your filters.<br><button class="clb" onclick="S.search='';S.cuisines=[];S.vis='all';S.typeF='all';R()">Clear all filters</button></div>`:""}</div>`;
 const sb=document.getElementById("sbox");if(sb)sb.addEventListener("input",e=>{S.search=e.target.value;R();setTimeout(()=>{const el=document.getElementById("sbox");if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length)}},0)});
 const so=document.getElementById("sortbox");if(so)so.addEventListener("change",e=>{S.sort=e.target.value;R()});
 ["af-n","af-c","af-r","af-a","af-h"].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("input",e=>{const m={"af-n":"_an","af-c":"_ac","af-r":"_ar","af-a":"_aa","af-h":"_ah"};S[m[id]]=e.target.value})});
@@ -199,7 +218,7 @@ window.toggleVisit=function(id){if(!S.ud[id])S.ud[id]={};S.ud[id].visited=!S.ud[
 window.toggleNote=function(id){_no.has(id)?_no.delete(id):_no.add(id);R();const ta=document.getElementById("nt-"+id);if(ta)ta.focus()};
 window.saveNote=function(id){const ta=document.getElementById("nt-"+id);if(!ta)return;const note=ta.value.trim();if(!S.ud[id])S.ud[id]={};if(note)S.ud[id].note=note;else delete S.ud[id].note;if(!S.ud[id].note&&!S.ud[id].visited)delete S.ud[id];_no.delete(id);save();R()};
 window.toggleCuisine=function(c){const i=S.cuisines.indexOf(c);if(i>=0)S.cuisines.splice(i,1);else S.cuisines.push(c);R()};
-window.submitAdd=function(){if(!S._an||!S._ac||!S._ar)return;S.custom.push({id:Date.now(),n:S._an.trim(),t:S._at||"r",c:S._ac.trim(),r:Math.min(5,Math.max(0,parseFloat(S._ar)||0)),rv:0,a:S._aa?.trim()||"Sofia",p:S._ap||"$$",h:S._ah?.trim()||null,custom:true});S._an="";S._ac="";S._ar="";S._aa="";S._ah="";S._at="r";S.addOpen=false;save();R()};
+window.submitAdd=function(){if(!S._an||!S._ac||!S._ar)return;S.custom.push({id:Date.now(),n:S._an.trim(),t:S._at||"r",c:S._ac.trim(),r:Math.min(5,Math.max(0,parseFloat(S._ar)||0)),rv:0,a:S._aa?.trim()||"Sofia",p:S._ap||"$$",h:S._ah?.trim()||null});S._an="";S._ac="";S._ar="";S._aa="";S._ah="";S._at="r";S.addOpen=false;save();R()};
 load();R();
 </script>
 </body>
