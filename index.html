@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sofia Eats">
+<meta name="theme-color" content="#0A0F14">
+<title>Sofia Eats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  background:#0A0F14;color:#E0E0E0;
+  font-family:'DM Sans','Segoe UI',system-ui,sans-serif;
+  min-height:100vh;min-height:100dvh;
+  overscroll-behavior:none;
+  -webkit-font-smoothing:antialiased;
+}
+body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+input,textarea,select,button{font-family:inherit;-webkit-appearance:none}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.22)}
+::-webkit-scrollbar{width:0;display:none}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+
+.header{
+  padding:20px 16px 14px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  background:linear-gradient(180deg,rgba(20,28,36,.97),rgba(10,15,20,.97));
+  position:sticky;top:0;z-index:100;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+}
+.title{font-size:22px;font-weight:700;letter-spacing:-.03em;background:linear-gradient(135deg,#F0F0F0,#888);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:9px;color:rgba(255,255,255,.2);font-weight:500;letter-spacing:.06em;display:block;margin-top:2px}
+.progress-wrap{display:flex;align-items:center;gap:10px;margin-top:10px}
+.progress-bar{flex:1;height:3px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;border-radius:2px;transition:width .4s;background:linear-gradient(90deg,#22C55E,#16A34A)}
+.progress-text{font-size:11px;color:rgba(255,255,255,.3);font-weight:600;white-space:nowrap}
+
+.type-row{display:flex;gap:6px;margin-top:10px}
+.type-btn{padding:6px 14px;font-size:12px;font-weight:600;border-radius:7px;cursor:pointer;border:1px solid rgba(255,255,255,.05);background:transparent;color:rgba(255,255,255,.28);transition:all .15s}
+.type-btn.active{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#ddd}
+
+.search-wrap{margin-top:10px;position:relative}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none}
+.search-input{width:100%;padding:10px 12px 10px 36px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;color:#ddd;font-size:14px;outline:none}
+.search-input:focus{border-color:rgba(255,255,255,.18)}
+
+.pills{margin-top:10px;display:flex;gap:5px;flex-wrap:wrap}
+.pill{padding:4px 10px;font-size:10px;font-weight:600;border-radius:16px;cursor:pointer;border:none;transition:all .15s}
+
+.controls{margin-top:10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ctrl-btn{padding:5px 11px;font-size:11px;font-weight:600;border-radius:6px;cursor:pointer;text-transform:capitalize;border:1px solid rgba(255,255,255,.05);background:transparent;color:rgba(255,255,255,.25);transition:all .15s}
+.ctrl-btn.active{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#ccc}
+.sort-select{padding:5px 8px;font-size:11px;font-weight:600;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:6px;color:rgba(255,255,255,.4);cursor:pointer;outline:none;margin-left:auto}
+
+.list{max-width:680px;margin:0 auto;padding:14px 16px 100px}
+.count{font-size:10px;color:rgba(255,255,255,.18);font-weight:600;margin-bottom:10px;letter-spacing:.06em}
+
+.card{
+  background:rgba(16,24,28,.85);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:14px 16px;margin-bottom:8px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.card.visited{background:rgba(16,24,28,.55);border-color:rgba(34,197,94,.25)}
+.card.visited .card-bar{display:block}
+.card-bar{display:none;position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#22C55E,transparent)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card-info{flex:1;min-width:0}
+.card-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card-name{font-size:15px;font-weight:700;letter-spacing:-.01em;color:#F0F0F0}
+.card.visited .card-name{color:rgba(255,255,255,.45);text-decoration:line-through;text-decoration-color:rgba(34,197,94,.4)}
+.badge{font-size:9px;font-weight:700;letter-spacing:.05em;padding:2px 7px;border-radius:5px;text-transform:uppercase;white-space:nowrap}
+.stars{display:flex;align-items:center;gap:2px;margin-top:5px}
+.star-val{margin-left:5px;font-size:12px;font-weight:700;color:#F59E0B}
+.card-meta{margin-top:4px;font-size:11px;color:rgba(255,255,255,.35);display:flex;gap:10px;flex-wrap:wrap}
+.card-hours{margin-top:2px;font-size:10px;color:rgba(255,255,255,.2)}
+.card-btns{display:flex;flex-direction:column;gap:6px;align-items:center;flex-shrink:0}
+.icon-btn{
+  width:40px;height:40px;border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+  border:2px solid rgba(255,255,255,.1);background:transparent;
+}
+.icon-btn.check-on{border-color:#22C55E;background:rgba(34,197,94,.12)}
+.icon-btn.note-on{border-color:#3B82F6;background:rgba(59,130,246,.08)}
+
+.note-box{
+  margin-top:8px;padding:8px 10px;border-radius:7px;
+  background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.1);
+  font-size:12px;color:rgba(147,197,253,.75);
+  font-family:'JetBrains Mono',monospace;white-space:pre-wrap;line-height:1.4;
+}
+.note-editor{margin-top:10px}
+.note-textarea{
+  width:100%;min-height:60px;padding:10px 12px;
+  background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);
+  border-radius:8px;color:#ccc;font-size:13px;
+  font-family:'JetBrains Mono',monospace;resize:vertical;outline:none;
+}
+.note-textarea:focus{border-color:rgba(59,130,246,.4)}
+.note-save{
+  float:right;margin-top:6px;padding:5px 14px;font-size:11px;font-weight:600;
+  background:rgba(59,130,246,.15);color:#60A5FA;
+  border:1px solid rgba(59,130,246,.25);border-radius:6px;cursor:pointer;
+}
+
+/* ADD FORM */
+.add-form{
+  background:rgba(16,24,28,.95);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:18px;margin-bottom:12px;
+}
+.add-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.add-title h3{font-size:15px;font-weight:700;color:#F0F0F0}
+.close-btn{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:18px;padding:0 4px}
+.form-type-row{display:flex;gap:8px;margin-bottom:12px}
+.form-type-btn{flex:1;padding:8px;font-size:12px;font-weight:600;border-radius:7px;cursor:pointer;border:1px solid rgba(255,255,255,.05);background:transparent;color:rgba(255,255,255,.3)}
+.form-type-btn.active{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#ddd}
+.form-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.form-input{
+  width:100%;padding:10px 12px;background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.1);border-radius:8px;
+  color:#ddd;font-size:14px;outline:none;
+}
+.form-input:focus{border-color:rgba(255,255,255,.25)}
+.form-row{display:flex;gap:8px}
+.form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.submit-btn{
+  width:100%;margin-top:6px;padding:12px;font-size:14px;font-weight:700;
+  border-radius:9px;cursor:pointer;border:none;transition:all .2s;
+}
+.submit-btn.enabled{background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff}
+.submit-btn.disabled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.2);cursor:default}
+
+.add-btn{
+  padding:8px 16px;font-size:12px;font-weight:700;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);color:#22C55E;
+  transition:all .2s;
+}
+.add-btn.open{background:rgba(34,197,94,.15)}
+
+.empty{text-align:center;padding:50px 20px;color:rgba(255,255,255,.18);font-size:13px}
+.clear-btn{
+  margin-top:10px;padding:8px 18px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);border-radius:7px;
+  color:rgba(255,255,255,.35);cursor:pointer;font-size:12px;
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const D=[
+{id:1,n:"Shtastlivetsa",t:"restaurant",c:"Bulgarian",r:4.5,rv:12367,a:"bul. Vitosha 27",p:"$$",h:"11AM–12AM daily"},
+{id:2,n:"Cosmos",t:"restaurant",c:"Bulgarian Fusion",r:4.6,rv:3802,a:"ul. Laveleye 19",p:"$$$",h:"12–3:30PM, 5:30–10:30PM"},
+{id:3,n:"Staria Chinar",t:"restaurant",c:"Bulgarian",r:4.7,rv:5889,a:"Dondukov Blvd 71",p:"$$",h:"11AM–11PM daily"},
+{id:4,n:"Unica",t:"restaurant",c:"Italian",r:4.6,rv:1936,a:"bul. Tsar Osvoboditel 8A",p:"$$$",h:"12–3:30PM, 4:30–11PM"},
+{id:5,n:"Kuzina",t:"restaurant",c:"Greek",r:4.8,rv:2565,a:"ul. Han Asparuh 36",p:"$$",h:"12–11:30PM daily"},
+{id:6,n:"COOKÓ Kitchen:Drinks",t:"restaurant",c:"International",r:4.7,rv:683,a:"ul. Ivan Denkoglu 40",p:"$$",h:"7AM–10PM"},
+{id:7,n:"Lavelé Kitchen&Bar",t:"restaurant",c:"International",r:4.7,rv:1930,a:"ul. Laveleye 20",p:"$$",h:"8AM–12AM"},
+{id:8,n:"Piatto Collezione",t:"restaurant",c:"Italian",r:4.7,rv:3663,a:"ul. Verila 5",p:"$$",h:"11AM–11PM"},
+{id:9,n:"Ploshtadcheto",t:"restaurant",c:"European",r:4.8,rv:3219,a:"ul. Tsvetna Gradina 5",p:"$$",h:"12–11PM daily"},
+{id:10,n:"ARIA Restaurant",t:"restaurant",c:"European",r:4.6,rv:881,a:"ul. Uzundzhovska 7-9",p:"$$",h:"12–11PM daily"},
+{id:11,n:"Osteria Tartufo",t:"restaurant",c:"Italian",r:4.3,rv:2147,a:"ul. Hristo Belchev 32",p:"$$",h:"11AM–11PM daily"},
+{id:12,n:"Pastorant",t:"restaurant",c:"Italian",r:4.5,rv:1148,a:"ul. Tsar Asen 16",p:"$$",h:"12–3PM, 6–10PM (closed Sun)"},
+{id:13,n:"Spaghetti Kitchen",t:"restaurant",c:"Italian",r:4.3,rv:4450,a:"ul. 6-ti Septemvri 9",p:"$$",h:"12PM–12AM daily"},
+{id:14,n:"Hadjidraganov's Houses",t:"restaurant",c:"Bulgarian",r:4.5,rv:7925,a:"ul. Kozloduy 75",p:"$$",h:"11:30AM–11:30PM"},
+{id:15,n:"Hadjidraganov's Cellars",t:"restaurant",c:"Bulgarian",r:4.5,rv:10182,a:"ul. Hristo Belchev 18",p:"$$",h:"11:30AM–11PM daily"},
+{id:16,n:"Izbata Tavern",t:"restaurant",c:"Bulgarian",r:4.4,rv:3847,a:"ul. Slavyanska 18",p:"$$",h:"11AM–12AM daily"},
+{id:17,n:"Manastirska Magernitsa",t:"restaurant",c:"Bulgarian",r:4.3,rv:4370,a:"ul. Han Asparuh 67",p:"$$",h:"12–11PM daily"},
+{id:18,n:"The Sushi Bar",t:"restaurant",c:"Japanese",r:4.5,rv:2088,a:"ul. Ivan Denkoglu 18",p:"$$$",h:"12–10PM daily"},
+{id:19,n:"Miyabi",t:"restaurant",c:"Japanese",r:4.4,rv:1749,a:"ul. Stara Planina 5",p:"$$",h:"12–10PM daily"},
+{id:20,n:"HAMACHI-Ni",t:"restaurant",c:"Japanese",r:4.5,rv:1983,a:"ul. G.S. Rakovski 179",p:"$$$",h:"12–10:30PM daily"},
+{id:21,n:"Umami",t:"restaurant",c:"Japanese",r:4.5,rv:3953,a:"Blvd James Bourchier 100",p:"$$",h:"11:30AM–11:30PM"},
+{id:22,n:"JIRU Asian Restaurant",t:"restaurant",c:"Asian",r:4.6,rv:414,a:"bul. Tsar Osvoboditel 16",p:"$$$",h:"12–4PM, 6:30–10:15PM"},
+{id:23,n:"Taj Mahal",t:"restaurant",c:"Indian",r:4.3,rv:2158,a:"ul. 11-ti Avgust 11",p:"$$$",h:"11:30AM–10:30PM"},
+{id:24,n:"SATSANGA Vegetarian",t:"restaurant",c:"Indian / Vegetarian",r:4.7,rv:1351,a:"ul. Georgi Benkovski 8",p:"$$",h:"9AM–10PM daily"},
+{id:25,n:"Saffron Indian",t:"restaurant",c:"Indian",r:4.6,rv:1733,a:"Studentski Kompleks",p:"$$",h:"12–11PM"},
+{id:26,n:"India House",t:"restaurant",c:"Indian",r:4.3,rv:503,a:"Hristo Botev Blvd 8",p:"$$",h:"12–10PM (closed Sun)"},
+{id:27,n:"Kohinoor I",t:"restaurant",c:"Indian",r:4.5,rv:1457,a:"bul. Gotse Delchev 67",p:"$$",h:"12–10:30PM"},
+{id:28,n:"Mediterraneo",t:"restaurant",c:"Mediterranean",r:4.4,rv:2086,a:"ul. Oborishte 9Б",p:"$$$",h:"12–11PM daily"},
+{id:29,n:"Capo Mediterranean",t:"restaurant",c:"Mediterranean",r:4.4,rv:817,a:"ul. Saborna 14",p:"$$$",h:"11AM–12AM daily"},
+{id:30,n:"Mezza",t:"restaurant",c:"Turkish",r:4.6,rv:1157,a:"ul. Angel Kanchev 19",p:"$$",h:"11:30AM–10:30PM"},
+{id:31,n:"Canteen Sofia",t:"restaurant",c:"Mexican / Latin",r:4.6,rv:3014,a:"ul. Hristo Belchev 12",p:"$$",h:"11AM–4AM"},
+{id:32,n:"Los Muchachos",t:"restaurant",c:"Mexican / Latin",r:4.7,rv:455,a:"ul. Tsar Simeon 51",p:"$$",h:"3–10PM (closed Mon/Sun)"},
+{id:33,n:"Señor Taco",t:"restaurant",c:"Mexican / Latin",r:4.8,rv:141,a:"Dondukov Blvd 26",p:"$",h:"11AM–4:30PM (wkdays)"},
+{id:34,n:"Takoteka",t:"restaurant",c:"Mexican / Latin",r:4.4,rv:1846,a:"ul. Tsar Shishman 22",p:"$$",h:"12–11PM daily"},
+{id:35,n:"Royal Thai",t:"restaurant",c:"Thai",r:4.3,rv:1506,a:"ul. Slavyanska 24",p:"$$$",h:"12–10:15PM (closed Tue)"},
+{id:36,n:"Thai-Licious",t:"restaurant",c:"Thai",r:4.8,rv:40,a:"ul. William Gladstone 12",p:"$",h:"12–7PM (closed Mon/Sun)"},
+{id:37,n:"Fake French",t:"restaurant",c:"French",r:4.5,rv:1458,a:"ul. Knyaz Boris I 66",p:"$$$",h:"6:30–11PM daily"},
+{id:38,n:"L'étranger",t:"restaurant",c:"French",r:4.7,rv:612,a:"ul. Tsar Simeon 78",p:"$$",h:"12–2:30PM, 6–10PM"},
+{id:39,n:"Anna's à la Française",t:"restaurant",c:"French",r:4.3,rv:264,a:"ul. Oborishte 23",p:"$$$",h:"11AM–11PM daily"},
+{id:40,n:"Le Soleil Crepes",t:"restaurant",c:"French / Café",r:4.8,rv:791,a:"ul. G.S. Rakovski 186",p:"$",h:"8AM–10PM daily"},
+{id:41,n:"Urban Legends",t:"restaurant",c:"Steakhouse",r:4.5,rv:829,a:"ul. Aksakov 14",p:"$$$",h:"11AM–12AM daily"},
+{id:42,n:"Wok to Walk",t:"restaurant",c:"Asian",r:4.1,rv:2733,a:"bul. Vitosha 8",p:"$$",h:"11AM–2AM daily"},
+{id:43,n:"Djanam Turkish",t:"restaurant",c:"Turkish / Grill",r:4.1,rv:1721,a:"bul. Vitosha 24",p:"$$",h:"9AM–12AM daily"},
+{id:44,n:"Constantinoff RestoBar",t:"restaurant",c:"Bulgarian",r:4.5,rv:2862,a:"bul. Vitosha 31-33",p:"$$",h:"11AM–12AM (Thu–Sun 1AM)"},
+{id:100,n:"Martines Specialty Coffee",t:"coffee",c:"Specialty Coffee",r:4.8,rv:650,a:"ul. Hristo Belchev 1A",p:"$$",h:"9AM–6PM daily"},
+{id:101,n:"Better Specialty Coffee",t:"coffee",c:"Specialty Coffee",r:5.0,rv:269,a:"ul. Neofit Rilski 59",p:"$$",h:"8AM–6PM daily"},
+{id:102,n:"Bloom Specialty Coffee",t:"coffee",c:"Specialty Coffee",r:4.9,rv:269,a:"ul. Veslets 23",p:"$$",h:"8AM–6PM daily"},
+{id:103,n:"FlavouRITs Coffee & Cocktails",t:"coffee",c:"Specialty Coffee",r:5.0,rv:123,a:"bul. Evlogi i Hristo Georgiev 15",p:"$$",h:"9AM–10PM (closed Mon)"},
+{id:104,n:"Gentoo Specialty Coffee",t:"coffee",c:"Specialty Coffee",r:5.0,rv:284,a:"ul. Neofit Rilski 34",p:"$",h:"8AM–5:30PM daily"},
+{id:105,n:"Up Coffee",t:"coffee",c:"Specialty Coffee",r:4.9,rv:153,a:"ul. Tri Ushi 6",p:"$",h:"8:30AM–5:30PM (wkdays)"},
+{id:106,n:"Urban Embassy Coffee",t:"coffee",c:"Specialty Coffee",r:5.0,rv:43,a:"ul. Slavyanska 3А",p:"$",h:"8AM–6PM daily"},
+{id:107,n:"The Coffee House",t:"coffee",c:"Specialty Coffee",r:5.0,rv:294,a:"bul. Tsar Osvoboditel 27",p:"$",h:"8AM–5:30PM daily"},
+{id:108,n:"The Family Coffee Roasters",t:"coffee",c:"Coffee Roastery",r:4.8,rv:208,a:"ul. G.S. Rakovski 163А",p:"$",h:"8AM–6:30PM daily"},
+{id:109,n:"Black Label Coffee & Bakery",t:"coffee",c:"Coffee Roastery",r:4.8,rv:775,a:"ul. Han Asparuh 13",p:"$$",h:"8AM–7:30PM daily"},
+{id:110,n:"EZAR Specialty Coffee",t:"coffee",c:"Specialty Coffee",r:5.0,rv:134,a:"ul. Aksakov 7А",p:"$",h:"8AM–5PM (wkdays)"},
+{id:111,n:"369 Specialty Coffee + Bakery",t:"coffee",c:"Specialty Coffee",r:4.7,rv:397,a:"bul. Patriarh Evtimiy 11",p:"$$",h:"9AM–5:30PM daily"},
+{id:112,n:"Dabov Specialty Coffee",t:"coffee",c:"Coffee Roastery",r:4.8,rv:256,a:"ul. Angel Kanchev 28",p:"$$",h:"8:30AM–6:30PM daily"},
+];
+
+const CC={
+"Bulgarian":{b:"#2D5016",t:"#A8E06C"},"Bulgarian Fusion":{b:"#3D6020",t:"#C4F084"},
+"Italian":{b:"#8B2500",t:"#FFB088"},"Greek":{b:"#1A4B7A",t:"#7EC8E3"},
+"European":{b:"#4A2D6B",t:"#C9A8F0"},"International":{b:"#5C4033",t:"#D4A574"},
+"Japanese":{b:"#8B0000",t:"#FF9999"},"Asian":{b:"#A0522D",t:"#FFD4A0"},
+"Indian":{b:"#B8860B",t:"#FFE4A0"},"Indian / Vegetarian":{b:"#6B8E23",t:"#D4E88C"},
+"Mediterranean":{b:"#006B5A",t:"#80E0CC"},"Turkish":{b:"#8B4513",t:"#F0C090"},
+"Turkish / Grill":{b:"#7A3B10",t:"#E8B080"},"Mexican / Latin":{b:"#C41E3A",t:"#FFB0C0"},
+"Thai":{b:"#7B2D8B",t:"#E0A8F0"},"French":{b:"#1B3A5C",t:"#A0C8E8"},
+"French / Café":{b:"#2C4A6C",t:"#B0D0E8"},"Steakhouse":{b:"#4A0E0E",t:"#E8A0A0"},
+"Specialty Coffee":{b:"#5C3317",t:"#E8C49A"},"Coffee Roastery":{b:"#6B3A1F",t:"#F0D0A0"},
+};
+
+// State
+let state = { search:"", cuisines:[], sort:"rating", visited:"all", typeF:"all", ud:{}, custom:[], addOpen:false };
+
+function load(){
+  try{const s=localStorage.getItem("sofia-eats-v3");if(s){const d=JSON.parse(s);state.ud=d.ud||{};state.custom=d.custom||[];}}catch(e){}
+}
+function save(){
+  try{localStorage.setItem("sofia-eats-v3",JSON.stringify({ud:state.ud,custom:state.custom}));}catch(e){}
+}
+
+function allPlaces(){return[...D,...state.custom]}
+function allCuisines(){return[...new Set(allPlaces().map(x=>x.c))].sort()}
+
+function stars(r){
+  let h='<div class="stars">';
+  for(let i=0;i<5;i++){
+    const f=i<Math.floor(r)?1:i===Math.floor(r)?r-Math.floor(r):0;
+    h+=`<svg width="13" height="13" viewBox="0 0 20 20"><defs><linearGradient id="sg${r}${i}"><stop offset="${f*100}%" stop-color="#F59E0B"/><stop offset="${f*100}%" stop-color="#374151"/></linearGradient></defs><path d="M10 1l2.5 5.5L18 7.5l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1z" fill="url(#sg${r}${i})"/></svg>`;
+  }
+  h+=`<span class="star-val">${r}</span></div>`;
+  return h;
+}
+
+function renderCard(item){
+  const ud=state.ud[item.id]||{};
+  const v=ud.visited;
+  const hasNote=!!ud.note;
+  const col=CC[item.c]||{b:"#3A3A3A",t:"#CCC"};
+  const icon=item.t==="coffee"?"☕":item.custom?"📌":"";
+
+  return`<div class="card${v?" visited":""}" data-id="${item.id}">
+    <div class="card-bar"></div>
+    <div class="card-top">
+      <div class="card-info">
+        <div class="card-header">
+          ${icon?`<span style="font-size:14px">${icon}</span>`:""}
+          <span class="card-name">${item.n}</span>
+          <span class="badge" style="background:${col.b};color:${col.t}">${item.c}</span>
+        </div>
+        ${stars(item.r)}
+        <div class="card-meta">
+          ${item.rv>0?`<span>${item.rv.toLocaleString()} reviews</span>`:""}
+          ${item.p?`<span>${item.p}</span>`:""}
+          <span>${item.a}</span>
+        </div>
+        ${item.h?`<div class="card-hours">${item.h}</div>`:""}
+      </div>
+      <div class="card-btns">
+        <button class="icon-btn${v?" check-on":""}" onclick="toggleVisit(${item.id})">
+          ${v?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>'
+            :'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>'}
+        </button>
+        <button class="icon-btn${hasNote?" note-on":""}" onclick="toggleNote(${item.id})">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${hasNote?"#3B82F6":"rgba(255,255,255,.25)"}" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </button>
+      </div>
+    </div>
+    ${hasNote&&!window._noteOpen?.has(item.id)?`<div class="note-box">${esc(ud.note)}</div>`:""}
+    ${window._noteOpen?.has(item.id)?`<div class="note-editor">
+      <textarea class="note-textarea" id="nt-${item.id}" placeholder="What did you order? Would you return?">${esc(ud.note||"")}</textarea>
+      <button class="note-save" onclick="saveNote(${item.id})">Save</button>
+      <div style="clear:both"></div>
+    </div>`:""}
+  </div>`;
+}
+
+function esc(s){return s?s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}
+
+function getFiltered(){
+  const s=state.search.toLowerCase();
+  return allPlaces().filter(x=>{
+    const ms=!s||x.n.toLowerCase().includes(s)||x.c.toLowerCase().includes(s)||x.a.toLowerCase().includes(s);
+    const mc=state.cuisines.length===0||state.cuisines.includes(x.c);
+    const mv=state.visited==="all"?true:state.visited==="visited"?state.ud[x.id]?.visited:!state.ud[x.id]?.visited;
+    const mt=state.typeF==="all"?true:x.t===state.typeF;
+    return ms&&mc&&mv&&mt;
+  }).sort((a,b)=>state.sort==="rating"?b.r-a.r:state.sort==="reviews"?b.rv-a.rv:a.n.localeCompare(b.n));
+}
+
+function renderAddForm(){
+  if(!state.addOpen)return"";
+  return`<div class="add-form">
+    <div class="add-title"><h3>Add a Place</h3><button class="close-btn" onclick="state.addOpen=false;render()">✕</button></div>
+    <div class="form-type-row">
+      <button class="form-type-btn${state._addType!=="coffee"?" active":""}" onclick="state._addType='restaurant';render()">🍽 Restaurant</button>
+      <button class="form-type-btn${state._addType==="coffee"?" active":""}" onclick="state._addType='coffee';render()">☕ Coffee</button>
+    </div>
+    <div class="form-group"><div class="form-label">Name *</div><input class="form-input" id="af-name" placeholder="e.g. My Favorite Spot" value="${esc(state._addName||"")}"></div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><div class="form-label">Cuisine / Category *</div><input class="form-input" id="af-cuisine" placeholder="e.g. Italian, Brunch" value="${esc(state._addCuisine||"")}"></div>
+      <div class="form-group" style="flex:1"><div class="form-label">Rating *</div><input class="form-input" id="af-rating" type="number" min="0" max="5" step="0.1" placeholder="4.5" value="${state._addRating||""}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><div class="form-label">Address</div><input class="form-input" id="af-addr" placeholder="ul. Example 12" value="${esc(state._addAddr||"")}"></div>
+      <div class="form-group" style="flex:1"><div class="form-label">Price</div>
+        <select class="form-input" id="af-price" style="cursor:pointer"><option value="$"${state._addPrice==="$"?" selected":""}>$</option><option value="$$"${(state._addPrice||"$$")==="$$"?" selected":""}>$$</option><option value="$$$"${state._addPrice==="$$$"?" selected":""}>$$$</option></select>
+      </div>
+    </div>
+    <div class="form-group"><div class="form-label">Hours (optional)</div><input class="form-input" id="af-hours" placeholder="e.g. 9AM–6PM daily" value="${esc(state._addHours||"")}"></div>
+    <button class="submit-btn ${state._addName&&state._addCuisine&&state._addRating?"enabled":"disabled"}" onclick="submitAdd()">Add to List</button>
+  </div>`;
+}
+
+function render(){
+  if(!window._noteOpen)window._noteOpen=new Set();
+  const all=allPlaces();
+  const filtered=getFiltered();
+  const vc=Object.values(state.ud).filter(u=>u.visited).length;
+  const cuisines=allCuisines();
+
+  document.getElementById("app").innerHTML=`
+    <div class="header">
+      <div style="max-width:680px;margin:0 auto">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div>
+            <span class="title">Sofia Eats ☕</span>
+            <span class="subtitle">RESTAURANTS · COFFEE · 5KM · 3.8+ RATED</span>
+          </div>
+          <button class="add-btn${state.addOpen?" open":""}" onclick="state.addOpen=!state.addOpen;render()">
+            ${state.addOpen?"✕ Cancel":"+ Add"}
+          </button>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:${(vc/all.length)*100}%"></div></div>
+          <span class="progress-text">${vc}/${all.length}</span>
+        </div>
+        <div class="type-row">
+          ${[{k:"all",l:"All"},{k:"restaurant",l:"🍽 Restaurants"},{k:"coffee",l:"☕ Coffee"}].map(x=>
+            `<button class="type-btn${state.typeF===x.k?" active":""}" onclick="state.typeF='${x.k}';render()">${x.l}</button>`
+          ).join("")}
+        </div>
+        <div class="search-wrap">
+          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input class="search-input" id="search-box" placeholder="Search name, cuisine, address..." value="${esc(state.search)}">
+        </div>
+        <div class="pills">
+          ${cuisines.map(c=>{
+            const a=state.cuisines.includes(c);
+            const col=CC[c]||{b:"#3A3A3A",t:"#CCC"};
+            return`<button class="pill" style="background:${a?col.b:"rgba(255,255,255,.03)"};color:${a?col.t:"rgba(255,255,255,.3)"}" onclick="toggleCuisine('${c.replace(/'/g,"\\'")}')">${c}</button>`;
+          }).join("")}
+        </div>
+        <div class="controls">
+          ${["all","visited","unvisited"].map(v=>
+            `<button class="ctrl-btn${state.visited===v?" active":""}" onclick="state.visited='${v}';render()">${v}</button>`
+          ).join("")}
+          <select class="sort-select" id="sort-box">
+            <option value="rating"${state.sort==="rating"?" selected":""}>Sort: Rating</option>
+            <option value="reviews"${state.sort==="reviews"?" selected":""}>Sort: Reviews</option>
+            <option value="name"${state.sort==="name"?" selected":""}>Sort: A–Z</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="list">
+      ${renderAddForm()}
+      <div class="count">${filtered.length} PLACE${filtered.length!==1?"S":""}${state.cuisines.length?` · ${state.cuisines.join(", ")}`:""}</div>
+      ${filtered.map(renderCard).join("")}
+      ${filtered.length===0?`<div class="empty">No places match your filters.<br><button class="clear-btn" onclick="clearAll()">Clear all filters</button></div>`:""}
+    </div>
+  `;
+
+  // Bind events after render
+  const sb=document.getElementById("search-box");
+  if(sb){sb.addEventListener("input",e=>{state.search=e.target.value;render();setTimeout(()=>{const el=document.getElementById("search-box");if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length)}},0)});}
+  const so=document.getElementById("sort-box");
+  if(so)so.addEventListener("change",e=>{state.sort=e.target.value;render()});
+
+  // Bind add form inputs
+  ["af-name","af-cuisine","af-rating","af-addr","af-hours"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener("input",e=>{
+      const map={"af-name":"_addName","af-cuisine":"_addCuisine","af-rating":"_addRating","af-addr":"_addAddr","af-hours":"_addHours"};
+      state[map[id]]=e.target.value;
+    });
+  });
+  const ps=document.getElementById("af-price");
+  if(ps)ps.addEventListener("change",e=>{state._addPrice=e.target.value});
+}
+
+window.toggleVisit=function(id){
+  if(!state.ud[id])state.ud[id]={};
+  state.ud[id].visited=!state.ud[id].visited;
+  save();render();
+};
+
+window.toggleNote=function(id){
+  if(!window._noteOpen)window._noteOpen=new Set();
+  if(window._noteOpen.has(id))window._noteOpen.delete(id);
+  else window._noteOpen.add(id);
+  render();
+  const ta=document.getElementById("nt-"+id);
+  if(ta)ta.focus();
+};
+
+window.saveNote=function(id){
+  const ta=document.getElementById("nt-"+id);
+  if(!ta)return;
+  const note=ta.value.trim();
+  if(!state.ud[id])state.ud[id]={};
+  if(note)state.ud[id].note=note;
+  else delete state.ud[id].note;
+  if(!state.ud[id].note&&!state.ud[id].visited)delete state.ud[id];
+  window._noteOpen.delete(id);
+  save();render();
+};
+
+window.toggleCuisine=function(c){
+  const i=state.cuisines.indexOf(c);
+  if(i>=0)state.cuisines.splice(i,1);else state.cuisines.push(c);
+  render();
+};
+
+window.clearAll=function(){
+  state.search="";state.cuisines=[];state.visited="all";state.typeF="all";
+  render();
+};
+
+window.submitAdd=function(){
+  if(!state._addName||!state._addCuisine||!state._addRating)return;
+  state.custom.push({
+    id:Date.now(),n:state._addName.trim(),t:state._addType||"restaurant",
+    c:state._addCuisine.trim(),r:Math.min(5,Math.max(0,parseFloat(state._addRating)||0)),
+    rv:0,a:state._addAddr?.trim()||"Sofia",p:state._addPrice||"$$",
+    h:state._addHours?.trim()||null,custom:true
+  });
+  state._addName="";state._addCuisine="";state._addRating="";state._addAddr="";state._addHours="";state._addType="restaurant";
+  state.addOpen=false;
+  save();render();
+};
+
+load();
+if(!state._addType)state._addType="restaurant";
+render();
+</script>
+</body>
+</html>
